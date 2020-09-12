@@ -1,0 +1,47 @@
+html,
+body {
+    padding: 0;
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.alert {
+    display: block;
+    position: fixed;
+    bottom: 20px;
+    right: 30px;
+    z-index: 99;
+    padding: 15px;
+}
+
+.makeStyles-root-16,
+.makeStyles-root-21,
+.makeStyles-root-26 {
+    height: auto !important;
+}
+
+.MuiPaper-root {
+    background-color: transparent !important;
+}
+
+.MuiPaper-elevation4 {
+    box-shadow: none !important
+}
+
+.MuiInput-underline:after {
+    border-bottom: 2px solid white !important;
+    pointer-events: none;
+}
+
+.MuiFormLabel-root.Mui-focused {
+    color: white !important;
+}
