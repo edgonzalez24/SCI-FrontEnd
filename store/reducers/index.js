@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import { authReducer } from './authReducer';
-import { carruselReducer } from './carruselReducer';
+import { uiReducer } from './uiReducer';
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
@@ -11,8 +11,8 @@ const persistConfig = {
 }
 
 const rootReducer = combineReducers({
-    image: carruselReducer,
-    auth: authReducer
+    auth: authReducer,
+    ui: uiReducer
 })
 
 

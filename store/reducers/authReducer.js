@@ -1,22 +1,28 @@
 import * as types from '../types/types';
 
 const initialState = {
-    auths: [],
-    auth: {},
-    loading: false,
-    error: null
+    email: null,
+    token: null,
+    logged: false,
+    isLoading: false
 }
-
 export const authReducer = (state = initialState, action) => {
     switch (action.type) {
-        case types.POST_AUTH:
+        case types.LOGIN:
+            return {
+                ...action.payload,
+                logged: true
+            }
+        case types.LOGOUT:
+            return {
+                logged: false
+            }
+        case types.FETCH_LOADING:
             return {
                 ...state,
-                auths: action.payload,
-                loading: false,
-                error: null
+                isLoading: action.payload
             }
         default:
-            return state
+            return state;
     }
 }

@@ -1,10 +1,11 @@
 import Head from 'next/head';
 import Navbar from '../navbar';
 import Footer from '../footer';
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/router';
+import { connect } from 'react-redux';
+import actions from '../../store/actions';
 
-const Layout =(props) => {
-  const {children} = props;
+const Layout =({ children, isAuthenticated }) => {
   const router = useRouter();
   return (
     <>
@@ -13,17 +14,17 @@ const Layout =(props) => {
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css"></link>
     </Head>
     {
-      (
-        router.route !== '/registro' && router.route !== '/login'
-      ) && (<Navbar/>)
+      (router.route !== '/registro' && router.route !== '/login') && (<Navbar/>)
     }
     {children}
     {
-      (
-        router.route !== '/registro' && router.route !== '/login'
-      ) && (<Footer/>)
+      (router.route !== '/registro' && router.route !== '/login') && (<Footer/>)
     }
     </>
   )
 }
-export default Layout;
+const mapStateToProps = (state) => (
+  {isAuthenticated: !!state.auth.token}
+);
+export default connect(mapStateToProps, actions)(Layout);
+

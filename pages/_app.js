@@ -9,6 +9,15 @@ import {store, persistor} from '../store/store';
 import {PersistGate} from 'redux-persist/integration/react'
 
 class MyApp extends App{
+  static async getInitialProps({ Component, ctx }) {
+    return {
+      pageProps: {
+        ...(Component.getInitialProps
+          ? await Component.getInitialProps(ctx)
+          : {})
+      }
+    };
+  }
 
   render() {
     const {Component , pageProps} = this.props

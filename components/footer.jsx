@@ -1,8 +1,13 @@
 const Footer = () => {
+  const today = new Date();
+  const year = today.getFullYear()
+
   return (
     <>
-      <div className="container mx-auto">
-        <p className="text-xs text-center italic"> Footer</p>
+      <div className="w-full bg-black h-10 flex items-center">
+        <div className="container mx-auto flex justify-center">
+          <p className="text-center italic text-white text-xl">{year}</p>
+        </div>
       </div>
     </>
   )

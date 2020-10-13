@@ -31,8 +31,9 @@ const Carousel = () => {
         scrollbar={{ draggable: true }}
 
       >
-        {images.map((el) =>
-          (<SwiperSlide>
+        {images.map((el, index) =>
+          (<SwiperSlide 
+            key={index}>
             <img src={el.url} alt="" className="w-full slide-image"/>
           </SwiperSlide>)
         )}

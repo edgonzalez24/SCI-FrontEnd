@@ -4,7 +4,7 @@ import {useState } from "react";
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import IconButton from '@material-ui/core/IconButton';
-// import {AddBrand} from '../../store/actions/auth'
+import {Login} from '../../store/actions/authAction'
 import {useDispatch, useSelector} from 'react-redux';
 import Alert from '@material-ui/lab/Alert';
 import Collapse from '@material-ui/core/Collapse';
@@ -17,7 +17,7 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 
 
 const formLogin= () => {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const [passwordShown, setPasswordShown] = useState(false);
   const [open, setOpen] = useState(true);
   // const {loading, success, msgError} = useSelector(state =>state.ui);
@@ -33,9 +33,8 @@ const formLogin= () => {
         const v = JSON.stringify(values, null, 2);
         const val = JSON.parse(v)
         document.querySelector("#loading").style.display= 'block'
-        // dispatch(AddBrand(val.email, val.nameBrand, val.urlWebsite,val.name, val.phone, val.numberStore, val.instagram, val.country, val.password, val.category, val.where_hear))
+        dispatch(Login(val.email, val.password))
         setTimeout(() => {
-          document.querySelector("#loading").style.display= 'none'
             resetForm();
         }, 2000);
       }}
@@ -64,11 +63,11 @@ const formLogin= () => {
           <div className="w-full flex justify-center">
             <form action="#" className="w-full lg:max-w-md" onSubmit={handleSubmit}>
               <div className="mb-8">
+              <label htmlFor="" className="text-white">Correo Electronico</label>
               <TextField
                   name="email"
                   id="email"
                   value={values.email}
-                  label="Email"
                   onChange={handleChange}
                   onBlur={handleBlur}
                   className={
@@ -78,11 +77,11 @@ const formLogin= () => {
                   } />
               </div>
               <div className="mb-4">
-              <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
+              <label htmlFor="" className="text-white"> Password</label>
                 <Input
                   id="standard-adornment-password"
                   type={passwordShown ? 'text' : 'password'}
-                  className="w-full"
+                  className="w-full text-white"
                   name="password"
                   value={values.password}
                     onChange={handleChange}
@@ -106,10 +105,10 @@ const formLogin= () => {
                   <button
                     type="submit"
 
-                    className="w-full grovana-round bg-black text-xs hover:bg-transparent hover:text-black h-10 text-white border border-black cursor-pointer inline-flex items-center justify-center">
-                    <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white hidden focus:outline-none" id="loading" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                      <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                      <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    className="w-full grovana-round bg-transparent text-lg hover:bg-transparent h-10 text-white border border-white cursor-pointer inline-flex items-center justify-center font-bold focus:outline-none">
+                    <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white hidden focus:outline-none" id="loading" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                     </svg>
                       Acceder
                     </button>
