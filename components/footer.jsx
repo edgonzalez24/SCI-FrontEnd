@@ -4,9 +4,9 @@ const Footer = () => {
 
   return (
     <>
-      <div className="w-full bg-black h-10 flex items-center">
+      <div className="w-full bg-blue-500 h-10 flex items-center">
         <div className="container mx-auto flex justify-center">
-          <p className="text-center italic text-white text-xl">{year}</p>
+          <p className="text-center text-white text-md font-bold opacity-50">COPYRIGHT © {year}</p>
         </div>
       </div>
     </>

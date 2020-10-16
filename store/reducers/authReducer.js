@@ -17,6 +17,8 @@ export const authReducer = (state = initialState, action) => {
             return {
                 logged: false
             }
+        case types.DEAUTHENTICATE:
+            return { token: null };
         case types.FETCH_LOADING:
             return {
                 ...state,

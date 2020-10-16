@@ -20,14 +20,14 @@ export const Login = (email, password) => {
                         uid: information.uid,
                         name: information.name,
                         lastname: information.lastname,
-                        username: information.username,
+                        email: information.email,
                         rol: information.rol,
                         token: information.token
 
                     }
                 });
                 setCookie('token', information.token);
-                Router.push('/dashboard');
+                Router.push('/inventario/agregar_inventario');
             })
             .catch(err => {
                 dispatch(setError('An error has occurred'))
@@ -42,6 +42,13 @@ const reauthenticate = (token) => {
             type: types.AUTHENTICATE,
             payload: token
         });
+    };
+};
+export const deauthenticate = () => {
+    return (dispatch) => {
+        removeCookie('token');
+        Router.push('/');
+        dispatch({ type: types.DEAUTHENTICATE });
     };
 };
 

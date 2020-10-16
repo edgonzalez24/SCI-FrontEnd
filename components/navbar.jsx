@@ -4,13 +4,18 @@ import HamburgerMenu from 'react-hamburger-menu';
 import { connect } from 'react-redux';
 import initialize from '../utils/initialize';
 import actions from '../store/actions';
+import {useDispatch, useSelector} from 'react-redux';
+import { deauthenticate } from '../store/actions/authAction';
+
+
 
 
 const Navbar = ({auth}) => {
+  const dispatch = useDispatch();
   const mainMenu = [{
     id: 1,
     name: "Inicio",
-    slug: "/home"
+    slug: "/"
   },
   {
     id: 2,
@@ -23,41 +28,32 @@ const Navbar = ({auth}) => {
     slug: "/mision-y-vision"
   },
   {
-    id: 4,
-    name: "¿Quienes somos?",
-    slug: "/quienes-somos"
-  },
-  {
-    id: 5,
-    name: "Información de proyecto",
-    slug: "/infomacion"
-  },
-  {
-    id: 6,
-    name: "Términos y Condiciones",
-    slug: "/privacidad-y-terminos"
-  }, 
-  {
     id: 7,
     name: "Iniciar Sesion",
     slug: "/login"
   }, 
   ]
-  const adminMenu = [
+
+  const AdminMenu = [
     {
       id: 1,
-      name: "Agregar Libro",
-      slug: "/agregar_libro"
-    }, 
-    {
-      id: 2,
-      name: "Agregar Estudiante",
-      slug: "/agregar_estudiante"
-    }, 
+      name: "Inventario",
+      subMenu : [
+        {
+          id: 1 ,
+          name: "Agregar Libro",
+          slug: "/agregar_inventario"
+        }
+      ]
+    }
   ]
   const [showMinUser, setShowMinUser] = useState(false);
   const [showMenu, setShowMenu] = useState(false); 
   const [open, setOpen] = useState(false);
+
+  const handleLogout = () =>{
+      dispatch(deauthenticate())
+  }
 
   const handleClick = () => {
     setOpen(!open)
@@ -67,7 +63,7 @@ const Navbar = ({auth}) => {
     <div className="flex flex-wrap w-full">
       {
         (showMenu) && (
-          <nav className="bg-blue-500 w-1/2 fixed z-20 h-screen animated slideInLeft">
+          <nav className="bg-blue-500 lg:w-2/6 fixed z-20 h-screen animated slideInLeft">
             <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 ">
               <div className="relative flex items-center justify-between h-16">
                 <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
@@ -98,7 +94,7 @@ const Navbar = ({auth}) => {
                           <div className="py-1 rounded-md bg-white shadow-xs" role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
                             <a href="#" className="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out" role="menuitem">Mi Perfil</a>
                             <a href="#" className="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out" role="menuitem">Ajustes</a>
-                            <a href="#" className="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out" role="menuitem">Cerrar Sesion</a>
+                            <a href="#" className="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out" role="menuitem" onClick={handleLogout}>Cerrar Sesion</a>
                           </div>
                         </div>
                           ) : null
@@ -110,19 +106,37 @@ const Navbar = ({auth}) => {
               </div>
             </div>
             <div className="block">
-              <div className="px-2 pt-2 pb-3">
+              <div className="px-2 pt-2 pb-3 flex flex-col">
                 {
                   mainMenu.map((item, index) =>(
                       (auth.token && item.name === 'Iniciar Sesion') ? (
                         <>
-                          <h2 className="text-xl text-white my-6 border-b border-white lg:mr-10">Menu de Administrador</h2>
-                          {adminMenu.map((item, index) => (
-                            <Link
-                              href={item.slug}
-                              key={index}
-                              >
-                              <a className="mt-1 block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out lg:text-xl">{item.name}</a>
-                            </Link>
+                          <h2 className="text-xl w-56 text-white my-6 border-b border-white ">Menu de Administrador</h2>
+                          {
+                            AdminMenu.map((i, index) => (
+                              <>
+                              <div
+                                key={index}
+                                className="mt-1 block px-3 py-2 rounded-md text-base font-medium text-gray-300 focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out lg:text-xl">
+                                {i.name}
+                              </div>
+                              {
+                                i.subMenu.map((sub, index) =>(
+                                  <Link
+                                    href={sub.slug}
+                                    key={index}
+                                    >
+                                    <a 
+                                    onClick={ () => setShowMenu(!showMenu)}
+                                    className="block -mt-2 w-64 px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out pl-5">
+                                      <div  onClick={ () => handleClick()}>
+                                      {sub.name}
+                                      </div>
+                                    </a>
+                                  </Link>
+                                ))
+                              }
+                              </>
                             ))
                           }
                         </>
@@ -131,7 +145,13 @@ const Navbar = ({auth}) => {
                           href={item.slug}
                           key={index}
                           >
-                          <a className="mt-1 block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out lg:text-xl">{item.name}</a>
+                          <a 
+                          className="mt-1 w-64 block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out lg:text-xl"
+                          onClick={ () => setShowMenu(!showMenu)}>
+                            <div onClick={ () => handleClick()}>
+                              {item.name}
+                            </div>
+                          </a>
                         </Link>
                       )
                   ))
@@ -151,8 +171,9 @@ const Navbar = ({auth}) => {
                   height={30}
                   strokeWidth={3}
                   rotate={0}
-                  className="font-bold leading-tight text-blue-500"
+                  className="font-bold leading-tight"
                   borderRadius={0}
+                  color="#1c234d"
                   animationDuration={0.5}
                 />
             </div>
