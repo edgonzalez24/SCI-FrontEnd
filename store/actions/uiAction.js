@@ -9,7 +9,7 @@ export const finishLoading = () => ({
 })
 
 export const setError = (error) => ({
-    type: types.UISETERROR,
+    type: types.UIERROR,
     payload: error
 })
 export const unsetError = () => ({

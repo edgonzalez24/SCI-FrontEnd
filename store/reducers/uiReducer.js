@@ -2,7 +2,7 @@ import * as types from '../types/types';
 const initialState = {
     loading: false,
     msgError: null,
-    success: null
+    msgSuccess: null
 }
 
 export const uiReducer = (state = initialState, action) => {
@@ -17,7 +17,7 @@ export const uiReducer = (state = initialState, action) => {
                 ...state,
                 loading: false
             }
-        case types.UISETERROR:
+        case types.UIERROR:
             return {
                 ...state,
                 msgError: action.payload
@@ -30,7 +30,7 @@ export const uiReducer = (state = initialState, action) => {
         case types.UISUCCESS:
             return {
                 ...state,
-                success: action.payload
+                msgSuccess: action.payload
             }
         case types.UIREMOVESUCCESS:
             return {
