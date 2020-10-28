@@ -4,6 +4,7 @@ import { uiReducer } from './uiReducer';
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { categoryReducer } from './categoryReducer';
+import { bookReducer } from './bookReducer';
 
 const persistConfig = {
     key: 'root',
@@ -14,6 +15,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
     auth: authReducer,
     category: categoryReducer,
+    book: bookReducer,
     ui: uiReducer
 });
 

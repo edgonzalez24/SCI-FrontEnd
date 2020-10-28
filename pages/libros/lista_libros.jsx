@@ -1,10 +1,10 @@
 import Head from 'next/head';
 import { connect } from 'react-redux';
-import initialize from '../utils/initialize';
-import actions from '../store/actions';
-import Add_Inventory from '../components/Inventory/add_inventory';
+import initialize from '../../utils/initialize';
+import actions from '../../store/actions';
+import All_Book from '../../components/Book/all_book';
 
-const AddInventory = ({auth}) => {
+const AllBook = ({auth}) => {
 
   return (
     <>
@@ -15,7 +15,7 @@ const AddInventory = ({auth}) => {
       {
         auth.token ? (
           <>
-            <Add_Inventory/>
+            <All_Book/>  
           </>
         ) : (
           <div className="h-screen flex justify-center items-center">
@@ -27,8 +27,8 @@ const AddInventory = ({auth}) => {
   )
 }
 
-AddInventory.getInitialProps = async(ctx) => {
+AllBook.getInitialProps = async(ctx) => {
   await initialize(ctx);
 }
 
-export default connect(state => state, actions)(AddInventory);
+export default connect(state => state, actions)(AllBook);

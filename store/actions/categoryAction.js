@@ -12,7 +12,28 @@ export const getCategory = () => {
                 });
             })
             .catch((error) => {
-                console.group(error)
+                console.log(error)
             })
+    }
+}
+
+export const addCategory = (name_category) => {
+    return (dispatch) => {
+        dispatch(startLoading());
+        axios.post(`/category/add`, {
+            name_category
+        }).then((response) => {
+            dispatch(finishLoading());
+            dispatch(setSuccess(response.data.message));
+            setTimeout(() => {
+                dispatch(setSuccess(null));
+            }, 5000);
+        }).catch(error => {
+            dispatch(setError(error.response.data.message))
+            setTimeout(() => {
+                dispatch(setError(null))
+            }, 5000);
+            dispatch(finishLoading());
+        })
     }
 }

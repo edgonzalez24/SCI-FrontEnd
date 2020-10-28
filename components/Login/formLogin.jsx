@@ -10,17 +10,17 @@ import Alert from '@material-ui/lab/Alert';
 import Collapse from '@material-ui/core/Collapse';
 import CloseIcon from '@material-ui/icons/Close';
 import TextField from '@material-ui/core/TextField';
-import Select from '@material-ui/core/Select';
-import InputLabel from '@material-ui/core/InputLabel';
 import Input from '@material-ui/core/Input';
 import InputAdornment from '@material-ui/core/InputAdornment';
+import Loading from '../customsPreloader/loading'
 
 
 const formLogin= () => {
   const dispatch = useDispatch();
   const [passwordShown, setPasswordShown] = useState(false);
   const [open, setOpen] = useState(true);
-  // const {loading, success, msgError} = useSelector(state =>state.ui);
+  const {loading, success, msgError} = useSelector(state =>state.ui);
+  console.log(loading)
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown ? false : true);
   };
@@ -137,6 +137,9 @@ const formLogin= () => {
                     </Collapse>
               </div>
             </div>
+            {
+              (loading) && (<Loading/>)
+            }
           </div>
         );
       }}

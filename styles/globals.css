@@ -45,3 +45,62 @@ a {
 .MuiFormLabel-root.Mui-focused {
     color: white !important;
 }
+
+.MuiDialog-paper {
+    background-color: white !important;
+}
+
+.modal {
+    font-size: 12px;
+}
+
+.modal>.header {
+    width: 100%;
+    border-bottom: 1px solid gray;
+    font-size: 18px;
+    text-align: center;
+    padding: 5px;
+}
+
+.popup-overlay {
+    background: rgba(0, 0, 0, 0.5) !important;
+}
+
+.modal>.content {
+    width: 100%;
+    padding: 10px 5px;
+}
+
+.modal>.actions {
+    width: 100%;
+    padding: 10px 5px;
+    margin: auto;
+    text-align: center;
+}
+
+#alertMsg {
+    z-index: 99999999 !important;
+}
+
+.MuiBackdrop-root {
+    background-color: rgba(0, 0, 0, 0.2) !important;
+}
+
+.modal>.close {
+    cursor: pointer;
+    position: absolute;
+    display: block;
+    height: 25px;
+    width: 25px;
+    padding-left: 2px;
+    line-height: 20px;
+    right: -10px;
+    top: -10px;
+    font-size: 30px;
+    background: #ffffff;
+    border-radius: 18px;
+    color: black;
+    border: 1px solid #cfcece;
+    outline: none;
+    z-index: 50;
+}

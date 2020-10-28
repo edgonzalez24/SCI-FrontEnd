@@ -27,3 +27,94 @@ export const addBook = (title, isbn, editor, editorial, datePublication, categor
         })
     }
 }
+
+export const deleteBook = (id) => {
+    return (dispatch) => {
+        dispatch(startLoading());
+        axios.delete(`/book/delete/${id}`)
+            .then((response) => {
+                dispatch(finishLoading());
+                dispatch(setSuccess(response.data.message));
+                setTimeout(() => {
+                    dispatch(setSuccess(null));
+                }, 5000);
+                axios.get('/book/all')
+                    .then((response) => {
+                        dispatch({
+                            type: types.GETBOOK,
+                            payload: response.data
+                        });
+                    })
+                    .catch((error) => {
+                        console.log(error)
+                    })
+            })
+            .catch(error => {
+                dispatch(setError(error.response.data.message))
+                setTimeout(() => {
+                    dispatch(setError(null))
+                }, 5000);
+                dispatch(finishLoading());
+            })
+    }
+}
+
+export const getBook = () => {
+    return (dispatch) => {
+        dispatch(startLoading());
+        axios.get('/book/all')
+            .then((response) => {
+                dispatch({
+                    type: types.GETBOOK,
+                    payload: response.data
+                });
+                dispatch(finishLoading());
+            })
+            .catch((error) => {
+                dispatch(setError(error.response.data.message))
+                setTimeout(() => {
+                    dispatch(setError(null))
+                }, 5000);
+                dispatch(finishLoading());
+            })
+
+    }
+}
+
+
+export const editBook = (_id, title, isbn, editor, editorial, datePublication, category) => {
+    return (dispatch) => {
+        dispatch(startLoading());
+        axios.put(`/book/update/${_id}`, {
+            title_book: title,
+            isbn_book: isbn,
+            autor: editor,
+            editorial: editorial,
+            date_publication: datePublication,
+            category: category
+        }).then((response) => {
+            dispatch(finishLoading());
+            dispatch(setSuccess(response.data.message));
+            axios.get('/book/all')
+                .then((response) => {
+                    dispatch({
+                        type: types.GETBOOK,
+                        payload: response.data
+                    });
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
+            setTimeout(() => {
+                dispatch(setSuccess(null));
+            }, 5000);
+
+        }).catch(error => {
+            dispatch(setError(error.response.data.message))
+            setTimeout(() => {
+                dispatch(setError(null))
+            }, 5000);
+            dispatch(finishLoading());
+        })
+    }
+}

@@ -27,10 +27,13 @@ export const Login = (email, password) => {
                     }
                 });
                 setCookie('token', information.token);
-                Router.push('/inventario/agregar_inventario');
+                Router.push('/libros/agregar_libro');
             })
             .catch(err => {
-                dispatch(setError('An error has occurred'))
+                dispatch(setError(err.response.message))
+                setTimeout(() => {
+                    dispatch(setError(null))
+                }, 5000);
                 dispatch(finishLoading());
             });
     }
