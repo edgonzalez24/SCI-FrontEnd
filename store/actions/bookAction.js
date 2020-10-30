@@ -11,7 +11,8 @@ export const addBook = (title, isbn, editor, editorial, datePublication, categor
             autor: editor,
             editorial: editorial,
             date_publication: datePublication,
-            category: category
+            category: category,
+            status: true
         }).then((response) => {
             dispatch(finishLoading());
             dispatch(setSuccess(response.data.message));

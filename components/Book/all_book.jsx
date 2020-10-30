@@ -65,6 +65,9 @@ const All_Book = ({books, getBook}) => {
                               <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
                                 Editorial
                               </th>
+                              <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                                Estado
+                              </th>
                               <th className="px-6 py-3 bg-gray-50 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
                                 Acciones
                               </th>
@@ -87,6 +90,11 @@ const All_Book = ({books, getBook}) => {
                               </td>
                               <td className="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
                                 {book.editorial}
+                              </td>
+                              <td className="px-6 py-4 whitespace-no-wrap">
+                                <span className={book.status ? "px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800" :"px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800" }>
+                                  {book.status ? 'Disponible' : 'Ocuapdo'}
+                                </span>
                               </td>
                               <td className="px-6 py-4 whitespace-no-wrap text-right text-sm leading-5 font-medium flex justify-between ">
                                 <Popup trigger={<button type="button" className="focus:outline-none text-indigo-600 hover:text-indigo-900">Editar </button>} modal>
