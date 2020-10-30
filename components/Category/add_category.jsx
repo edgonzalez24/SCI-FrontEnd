@@ -60,13 +60,16 @@ return (
                   <div className="w-full overflow-hidden">
                     <form className="bg-white shadow-lg rounded-lg px-8 pt-6 pb-8 mb-4 animated slideInLeft" onSubmit={handleSubmit}>
                       <div className="flex flex-wrap">
-                        <div className="w-full lg:w-1/5">
-
+                        <div className="w-full lg:w-1/5 flex items-center">
+                        <div>
+                            <p className="italic">"No olvide completar la informacion"</p>
+                            <img src="/gifs/book.gif" alt=""/>
+                          </div>
                         </div>
                         <div className="w-full lg:w-4/5">
-                          <div className="flex flex-wrap -mx-3 mb-6">
-                            <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                              <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                          <div className="flex justify-center -mx-3 mb-6">
+                            <div className="w-full lg:w-1/2 px-3 mb-6 md:mb-0">
+                              <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2 text-center">
                                 Nombre de Categoria
                               </label>
                               <input
@@ -86,9 +89,7 @@ return (
                             )}
                             </div>
                           </div>
-                        </div>
-                      </div>
-                      <div className="my-5">
+                          <div className="my-5">
                         <span className="flex justify-center ">
                           <button
                             type="submit"
@@ -105,6 +106,8 @@ return (
                               Añadir
                             </button>
                         </span>
+                      </div>
+                        </div>
                       </div>
                     </form> 
                   </div>

@@ -5,6 +5,7 @@ import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { categoryReducer } from './categoryReducer';
 import { bookReducer } from './bookReducer';
+import { studentReducer } from './studentReducer';
 
 const persistConfig = {
     key: 'root',
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
     auth: authReducer,
     category: categoryReducer,
     book: bookReducer,
+    student: studentReducer,
     ui: uiReducer
 });
 

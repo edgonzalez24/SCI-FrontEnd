@@ -14,3 +14,4 @@ export const FETCH_LOADING = 'FETCH_LOADING';
 export const GETCATEGORY = 'GETCATEGORY';
 export const ADD_INVENTORY = 'ADD_INVENTORY';
 export const GETBOOK = 'GETBOOK';
+export const GETSTUDENTS = 'GETSTUDENTS'

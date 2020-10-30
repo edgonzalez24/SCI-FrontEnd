@@ -35,7 +35,7 @@ const Edit_Book = (props) => {
 
 return (
   <Formik
-      initialValues={{ title: title_book  , isbn: isbn_book, editor:autor, editorial:editorial, datePublication:date_publication , category:category._id}}
+      initialValues={{ title: title_book  , isbn: isbn_book, editor:autor, editorial:editorial, datePublication:date_publication , category:category ? category._id : ''}}
       onSubmit={async (values, {resetForm}) => {
         if(!values.title && !values.isbn && !values.editor && !values.editorial && !values.datePublication && !values.category) {
           document.querySelector("#error").style.display= 'block'
@@ -69,7 +69,7 @@ return (
               <div className="container mx-auto flex justify-center items-center h-full">
                 <div className="w-full">
                   <div className="w-full overflow-hidden">
-                    <form className="bg-white shadow-lg rounded-lg px-8 pt-6 pb-8 mb-4 animated slideInLeft" onSubmit={handleSubmit}>
+                    <form className="bg-white shadow-lg rounded-lg px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit}>
                     <h2 className="text-lg lg:text-3xl text-blue-500 font-bold text-center animated slideInRight mb-2">Editar Libro</h2>
                     <p id="error" className="text-red-500 text-center text-base font-extrabold hidden mb-2 animated fadeIn">Ningun dato se ha editado</p>
                       <div className="flex flex-col">
@@ -166,7 +166,7 @@ return (
                                   onChange={handleChange}
                                   onBlur={handleBlur}
                                   className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
-                                  <option value={category._id}>{category.name_category}</option>
+                                  <option value={category ? category._id : '' }>{category ? category.name_category : 'Seleccione una nueva categoria'}</option>
                                   {
                                     categories.map( (opt, index) => (
                                     <option key={index} value={opt._id}>{opt.name_category}</option>

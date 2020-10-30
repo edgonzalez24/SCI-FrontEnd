@@ -1,17 +1,17 @@
+import { finishLoading, setError, setSuccess, startLoading } from './uiAction';
 import * as types from '../types/types';
 import axios from '../../utils/api';
-import { finishLoading, setError, setSuccess, startLoading } from './uiAction';
 
-export const addBook = (title, isbn, editor, editorial, datePublication, category) => {
+export const addStudent = (name, lastname, genre, academic_degree, section, teacher) => {
     return (dispatch) => {
         dispatch(startLoading());
-        axios.post(`/book/add`, {
-            title_book: title,
-            isbn_book: isbn,
-            autor: editor,
-            editorial: editorial,
-            date_publication: datePublication,
-            category: category
+        axios.post(`/students/add`, {
+            name,
+            lastname,
+            genre,
+            academic_degree,
+            section,
+            teacher
         }).then((response) => {
             dispatch(finishLoading());
             dispatch(setSuccess(response.data.message));
@@ -28,19 +28,41 @@ export const addBook = (title, isbn, editor, editorial, datePublication, categor
     }
 }
 
-export const deleteBook = (id) => {
+
+export const getStudents = () => {
     return (dispatch) => {
         dispatch(startLoading());
-        axios.delete(`/book/delete/${id}`)
+        axios.get('/students/all')
+            .then((response) => {
+                dispatch({
+                    type: types.GETSTUDENTS,
+                    payload: response.data
+                });
+                dispatch(finishLoading());
+            })
+            .catch((error) => {
+                dispatch(setError(error.response.data.message))
+                setTimeout(() => {
+                    dispatch(setError(null))
+                }, 5000);
+                dispatch(finishLoading());
+            })
+    }
+}
+
+export const deleteStudent = (id) => {
+    return (dispatch) => {
+        dispatch(startLoading());
+        axios.delete(`/students/delete/${id}`)
             .then((response) => {
                 dispatch(setSuccess(response.data.message));
                 setTimeout(() => {
                     dispatch(setSuccess(null));
                 }, 5000);
-                axios.get('/book/all')
+                axios.get('/students/all')
                     .then((response) => {
                         dispatch({
-                            type: types.GETBOOK,
+                            type: types.GETSTUDENTS,
                             payload: response.data
                         });
                         dispatch(finishLoading());
@@ -59,45 +81,22 @@ export const deleteBook = (id) => {
     }
 }
 
-export const getBook = () => {
+export const editStudent = (_id, name, lastname, genre, academic_degree, section, teacher) => {
     return (dispatch) => {
         dispatch(startLoading());
-        axios.get('/book/all')
-            .then((response) => {
-                dispatch({
-                    type: types.GETBOOK,
-                    payload: response.data
-                });
-                dispatch(finishLoading());
-            })
-            .catch((error) => {
-                dispatch(setError(error.response.data.message))
-                setTimeout(() => {
-                    dispatch(setError(null))
-                }, 5000);
-                dispatch(finishLoading());
-            })
-
-    }
-}
-
-
-export const editBook = (_id, title, isbn, editor, editorial, datePublication, category) => {
-    return (dispatch) => {
-        dispatch(startLoading());
-        axios.put(`/book/update/${_id}`, {
-            title_book: title,
-            isbn_book: isbn,
-            autor: editor,
-            editorial: editorial,
-            date_publication: datePublication,
-            category: category
+        axios.put(`/students/update/${_id}`, {
+            name,
+            lastname,
+            genre,
+            academic_degree,
+            section,
+            teacher
         }).then((response) => {
             dispatch(setSuccess(response.data.message));
-            axios.get('/book/all')
+            axios.get('/students/all')
                 .then((response) => {
                     dispatch({
-                        type: types.GETBOOK,
+                        type: types.GETSTUDENTS,
                         payload: response.data
                     });
                     dispatch(finishLoading());

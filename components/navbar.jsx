@@ -59,10 +59,30 @@ const Navbar = ({auth}) => {
           id: 1 ,
           name: "Agregar Categoria",
           slug: "/categoria/agregar_categoria"
+        },
+        {
+          id: 2 ,
+          name: "Lista de Categorias",
+          slug: "/categoria/lista_categoria"
+        }
+      ]
+    },
+    {
+      id: 3,
+      name: "Estudiantes",
+      subMenu : [
+        {
+          id: 1 ,
+          name: "Agregar Estudiante",
+          slug: "/estudiante/agregar_estudiante"
+        },
+        {
+          id: 2 ,
+          name: "Lista de Estudiantes",
+          slug: "/estudiante/lista_estudiante"
         }
       ]
     }
-
   ]
   const [showMinUser, setShowMinUser] = useState(false);
   const [showMenu, setShowMenu] = useState(false); 
@@ -80,7 +100,7 @@ const Navbar = ({auth}) => {
     <div className="flex flex-wrap w-full">
       {
         (showMenu) && (
-          <nav className="bg-blue-500 lg:w-2/6 fixed z-20 h-screen animated slideInLeft">
+          <nav className="bg-blue-500 lg:w-3/12 fixed z-20 h-screen animated slideInLeft">
             <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 ">
               <div className="relative flex items-center justify-between h-16">
                 <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">

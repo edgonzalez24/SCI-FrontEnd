@@ -199,9 +199,7 @@ return (
                             )}
                             </div>
                           </div>
-                        </div>
-                      </div>
-                      <div className="my-5">
+                          <div className="my-5">
                         <span className="flex justify-center ">
                           <button
                             type="submit"
@@ -218,6 +216,8 @@ return (
                               Añadir
                             </button>
                         </span>
+                      </div>
+                        </div>
                       </div>
                     </form> 
                   </div>

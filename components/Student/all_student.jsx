@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react'
 import {useDispatch, useSelector}from 'react-redux';
-import { getBook, deleteBook} from '../../store/actions/bookAction';
+import { getStudents, deleteStudent } from '../../store/actions/studentAction';
 import Skeleton from '../customsPreloader/skeleton';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -10,9 +10,9 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import Popup from 'reactjs-popup';
-import Edit_Book from './edit_book'
+import Edit_Student from './edit_student'
 
-const All_Book = ({books, getBook}) => {
+const All_Student = ({students, getStudents}) => {
   const dispatch = useDispatch();
   const {loading, msgSuccess, msgError} = useSelector(state =>state.ui);
   const [show, setShow] = useState(false);
@@ -30,18 +30,18 @@ const All_Book = ({books, getBook}) => {
 
   const removeData = (id) => {
     setOpen(false);
-    dispatch(deleteBook(id));
+    dispatch(deleteStudent(id));
   }
   useEffect(() => {
-      getBook();
-  },[]);
+    getStudents();
+},[]);
   return (
     <div className="lg:h-screen bg-gray-300 overflow-hidden">
       <div className="container mx-auto flex justify-center items-center h-full">
         <div className="lg:5/6 w-full">
-          <h2 className="text-lg lg:text-3xl text-blue-500 font-bold text-center animated slideInRight">Lista de libros</h2>
+          <h2 className="text-lg lg:text-3xl text-blue-500 font-bold text-center animated slideInRight">Lista de estudiantes</h2>
           {
-            (books.length > 0) ? (
+            (students.length > 0) ? (
               <div className="overflow-hidden w-full">
                 <div className="bg-white shadow-lg rounded-lg animated slideInLeft">
                 {
@@ -54,16 +54,19 @@ const All_Book = ({books, getBook}) => {
                           <thead>
                             <tr>
                               <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                                Nombre de Libro
+                                Número
                               </th>
                               <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                                Categoria
+                                Nombre del Estudiante
                               </th>
                               <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                                Autor
+                                Género
                               </th>
                               <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                                Editorial
+                                Grado Escolar
+                              </th>
+                              <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                                Docente Responsable
                               </th>
                               <th className="px-6 py-3 bg-gray-50 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
                                 Acciones
@@ -71,22 +74,25 @@ const All_Book = ({books, getBook}) => {
                             </tr>
                           </thead>
                           {
-                            books.map( (book, index) => (
+                            students.map( (student, index) => (
                               <tbody 
                               key={index}
                               className="bg-white divide-y divide-gray-200">
                             <tr>
                               <td className="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
-                                {book.title_book}
+                                {index + 1}
                               </td>
                               <td className="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
-                                { (book.category) ? book.category.name_category : 'Sin Categoria' }
+                                { `${student.name} ${student.lastname}` }
                               </td>
                               <td className="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
-                                {book.autor}
+                                {student.genre}
                               </td>
                               <td className="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
-                                {book.editorial}
+                                {student.academic_degree}
+                              </td>
+                              <td className="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
+                                {student.teacher}
                               </td>
                               <td className="px-6 py-4 whitespace-no-wrap text-right text-sm leading-5 font-medium flex justify-between ">
                                 <Popup trigger={<button type="button" className="focus:outline-none text-indigo-600 hover:text-indigo-900">Editar </button>} modal>
@@ -95,7 +101,7 @@ const All_Book = ({books, getBook}) => {
                                     <button type="button" className="close" onClick={close}>
                                       &times;
                                     </button>
-                                    <Edit_Book bookInfo={book}/>
+                                    <Edit_Student studentInfo={student}/>
                                   </div>
                                 )}
                               </Popup>
@@ -113,7 +119,7 @@ const All_Book = ({books, getBook}) => {
                                     <Button autoFocus onClick={handleClose} color="primary" className="focus:outline-none">
                                       Cancelar
                                     </Button>
-                                    <Button onClick={() => removeData(book._id)} color="primary" className="focus:outline-none" autoFocus>
+                                    <Button onClick={() => removeData(student._id)} color="primary" className="focus:outline-none" autoFocus>
                                       Confirmar
                                     </Button>
                                   </DialogActions>
@@ -159,10 +165,10 @@ const All_Book = ({books, getBook}) => {
   )
 }
 const mapStateToProps = (state) => ({
-  books: state.book.books,
+  students: state.student.students,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getBook: () => dispatch(getBook())
+  getStudents: () => dispatch(getStudents())
 });
-export default connect(mapStateToProps, mapDispatchToProps)(All_Book);
+export default connect(mapStateToProps, mapDispatchToProps)(All_Student);
