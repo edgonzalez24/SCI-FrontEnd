@@ -20,7 +20,7 @@ const Navbar = ({auth}) => {
   {
     id: 2,
     name: "Busqueda",
-    slug: "/busqueda"
+    slug: "/search"
   },
   {
     id: 3,
