@@ -16,7 +16,7 @@ const Search = ({books, getBook}) => {
         <div className="mb-5 mt-16">
           <SearchBook/>
         </div>
-        <h2 className="poppins font-bold text-4xl text-blue-500 text-center">Nuevos Libros</h2>
+        <h2 className="poppins font-bold text-4xl text-blue-500 text-center">Busqueda de libros:</h2>
         {
           books.length > 0 ? (
             <div className="flex flex-row">
@@ -28,7 +28,7 @@ const Search = ({books, getBook}) => {
                     </div>
                   </div>
                 ))) : (
-                  <div className="flex flex-wrap">
+                  <div className="flex flex-wrap animated fadeIn">
                     {
                       books.map((book, index) => (
                         <div  key={index} className="mx-5 ">

@@ -120,3 +120,24 @@ export const editBook = (_id, title, isbn, editor, editorial, datePublication, c
         })
     }
 }
+
+export const search = (keyword) => {
+    return (dispatch) => {
+        dispatch(startLoading());
+        axios.get(`/search?title_book=${keyword}`)
+            .then((response) => {
+                dispatch({
+                    type: types.GETBOOK,
+                    payload: response.data
+                });
+                dispatch(finishLoading());
+            })
+            .catch((error) => {
+                dispatch(setError(error.response.data.message))
+                setTimeout(() => {
+                    dispatch(setError(null))
+                }, 5000);
+                dispatch(finishLoading());
+            })
+    }
+}
