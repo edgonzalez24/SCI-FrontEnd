@@ -44,6 +44,8 @@ return (
       }}
 
     validationSchema={Yup.object().shape({
+      isbn: Yup.string()
+        .required("Campo Requerido"),
       title: Yup.string()
         .required("Campo Requerido"),
       editor: Yup.string()
@@ -90,8 +92,8 @@ return (
                               id="title"
                               value={values.title}
                               onChange={handleChange}
-              
-                              open={open}                onBlur={handleBlur}
+                              onBlur={handleBlur}
+                              open={open}
                               className={
                                 errors.title && touched.title ? 
                                 "appearance-none block w-full bg-gray-200 text-gray-700 border-2 border-red-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white" : "appearance-none block w-full bg-gray-200 text-gray-700 border-2 border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
@@ -111,8 +113,14 @@ return (
                               value={values.isbn}
                               onChange={handleChange}
                               onBlur={handleBlur}
-                              className="appearance-none block w-full bg-gray-200 text-gray-700 border-2 border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
+                              className={
+                                errors.isbn && touched.isbn ? 
+                                "appearance-none block w-full bg-gray-200 text-gray-700 border-2 border-red-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white" : "appearance-none block w-full bg-gray-200 text-gray-700 border-2 border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
+                              } 
                               type="text" placeholder="Escriba el codigo de Libro"/>
+                              {errors.isbn && touched.isbn && (
+                                <div className="text-red-700 text-xs">{errors.isbn}</div>
+                              )}
                             </div>
                           </div>
                           <div className="flex flex-wrap -mx-3 mb-6">
