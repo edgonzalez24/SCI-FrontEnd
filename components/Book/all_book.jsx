@@ -93,7 +93,7 @@ const All_Book = ({books, getBook}) => {
                               </td>
                               <td className="px-6 py-4 whitespace-no-wrap">
                                 <span className={book.status ? "px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800" :"px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800" }>
-                                  {book.status ? 'Disponible' : 'Ocuapdo'}
+                                  {book.status ? 'Disponible' : 'No Disponible'}
                                 </span>
                               </td>
                               <td className="px-6 py-4 whitespace-no-wrap text-right text-sm leading-5 font-medium flex justify-between ">

@@ -6,6 +6,7 @@ import storage from 'redux-persist/lib/storage';
 import { categoryReducer } from './categoryReducer';
 import { bookReducer } from './bookReducer';
 import { studentReducer } from './studentReducer';
+import { notificationsReducer } from './notificationsReducer';
 
 const persistConfig = {
     key: 'root',
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
     category: categoryReducer,
     book: bookReducer,
     student: studentReducer,
+    notification: notificationsReducer,
     ui: uiReducer
 });
 

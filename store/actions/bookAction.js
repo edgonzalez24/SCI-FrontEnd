@@ -141,3 +141,48 @@ export const search = (keyword) => {
             })
     }
 }
+export const detailBook = (id) => {
+    return (dispatch) => {
+        dispatch(startLoading());
+        axios.get(`/book/detail?id=${id}`)
+            .then((response) => {
+                dispatch(finishLoading());
+                dispatch({
+                    type: types.GETBOOK,
+                    payload: response.data
+                });
+            }).catch(error => {
+                dispatch(setError(error.response.data.message))
+                setTimeout(() => {
+                    dispatch(setError(null))
+                }, 5000);
+                dispatch(finishLoading());
+            })
+    }
+}
+
+export const requestBook = (name, lastname, bookName, isbn) => {
+    return (dispatch) => {
+        dispatch(startLoading());
+        axios.post('/mail', {
+                name,
+                lastname,
+                bookName,
+                isbn,
+                status: true
+            })
+            .then((response) => {
+                dispatch(finishLoading());
+                dispatch(setSuccess(response.data.message));
+                setTimeout(() => {
+                    dispatch(setSuccess(null));
+                }, 5000);
+            }).catch(error => {
+                dispatch(setError(error.response.data.message))
+                setTimeout(() => {
+                    dispatch(setError(null))
+                }, 5000);
+                dispatch(finishLoading());
+            })
+    }
+}
