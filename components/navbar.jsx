@@ -99,6 +99,7 @@ const Navbar = ({auth}) => {
   }
 
   const reviewNotification = ( notification) => {
+    console.log(notificacion)
     setShowPreview(!setPreview);
     setPreview(notification);
     dispatch(updateNotification(notification._id))
@@ -173,7 +174,7 @@ const Navbar = ({auth}) => {
                                             X Regresar
                                           </div>
                                           <div className="block py-2 text-xs leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out animated fadeIn">
-                                          Tiene una notificacion de: {preview.name} {preview.lastname}, quien solicita un prestamos del siguiente ejemplar: {preview.nameBook} con codigo ISBN: {preview.isbn}
+                                          Tiene una notificacion de: {preview.name} {preview.lastname}, quien solicita un prestamos del siguiente ejemplar: {preview.bookName} con codigo ISBN: {preview.isbn}
                                           </div>
                                         </div>
                                         )
