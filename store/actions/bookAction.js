@@ -82,6 +82,28 @@ export const getBook = () => {
     }
 }
 
+export const newsBooks = () => {
+    return (dispatch) => {
+        dispatch(startLoading());
+        axios.get('/book/news')
+            .then((response) => {
+                dispatch({
+                    type: types.GETBOOK,
+                    payload: response.data
+                });
+                dispatch(finishLoading());
+            })
+            .catch((error) => {
+                dispatch(setError(error.response.data.message))
+                setTimeout(() => {
+                    dispatch(setError(null))
+                }, 5000);
+                dispatch(finishLoading());
+            })
+
+    }
+}
+
 
 export const editBook = (_id, title, isbn, editor, editorial, datePublication, category) => {
     return (dispatch) => {

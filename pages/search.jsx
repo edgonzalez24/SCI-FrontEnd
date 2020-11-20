@@ -2,14 +2,14 @@ import {useEffect, useState} from 'react'
 import {useDispatch, useSelector}from 'react-redux';
 import { connect } from 'react-redux';
 import Skeleton from '../components/customsPreloader/skeleton';
-import { getBook } from '../store/actions/bookAction';
+import { newsBooks } from '../store/actions/bookAction';
 import SearchBook from '../components/Search/searchBook';
 import Link from 'next/link'
 
-const Search = ({books, getBook}) => {
+const Search = ({books, newsBooks}) => {
   const {loading } = useSelector(state =>state.ui);
   useEffect(() => {
-    getBook();
+    newsBooks();
   },[]);
   return (
     <div className="px-5">
@@ -78,6 +78,6 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getBook: () => dispatch(getBook())
+  newsBooks: () => dispatch(newsBooks())
 });
 export default connect(mapStateToProps, mapDispatchToProps)(Search);
