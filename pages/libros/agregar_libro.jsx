@@ -9,7 +9,7 @@ const AddBook = ({auth}) => {
   return (
     <>
       <Head>
-        <title>Library APP</title>
+        <title>Libros - SCI</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {

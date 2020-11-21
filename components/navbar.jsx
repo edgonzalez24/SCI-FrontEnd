@@ -7,103 +7,36 @@ import actions from '../store/actions';
 import {useDispatch, useSelector} from 'react-redux';
 import { deauthenticate } from '../store/actions/authAction';
 import { getNotifications, updateNotification } from '../store/actions/notificationsAction';
-
+import {mainMenu, AdminMenu} from '../public/global'
 
 const Navbar = ({auth}) => {
   const dispatch = useDispatch();
   const {notifications} = useSelector(state =>state.notification);
-  const mainMenu = [{
-    id: 1,
-    name: "Inicio",
-    slug: "/"
-  },
-  {
-    id: 2,
-    name: "Busqueda",
-    slug: "/search"
-  },
-  {
-    id: 3,
-    name: "Misión y Visión",
-    slug: "/mision-y-vision"
-  },
-  {
-    id: 7,
-    name: "Iniciar Sesion",
-    slug: "/login"
-  }, 
-  ]
 
-  const AdminMenu = [
-    {
-      id: 1,
-      name: "Libros",
-      subMenu : [
-        {
-          id: 1 ,
-          name: "Agregar Libros",
-          slug: "/libros/agregar_libro"
-        }, 
-        {
-          id: 2 ,
-          name: "Lista de Libros",
-          slug: "/libros/lista_libros"
-        }
-      ]
-    },
-    {
-      id: 2,
-      name: "Categorias",
-      subMenu : [
-        {
-          id: 1 ,
-          name: "Agregar Categoria",
-          slug: "/categoria/agregar_categoria"
-        },
-        {
-          id: 2 ,
-          name: "Lista de Categorias",
-          slug: "/categoria/lista_categoria"
-        }
-      ]
-    },
-    {
-      id: 3,
-      name: "Estudiantes",
-      subMenu : [
-        {
-          id: 1 ,
-          name: "Agregar Estudiante",
-          slug: "/estudiante/agregar_estudiante"
-        },
-        {
-          id: 2 ,
-          name: "Lista de Estudiantes",
-          slug: "/estudiante/lista_estudiante"
-        }
-      ]
-    }
-  ]
   const [showMinUser, setShowMinUser] = useState(false);
   const [showMenu, setShowMenu] = useState(false); 
   const [open, setOpen] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false); 
   const [ showPreview , setShowPreview] = useState(true)
-  const [ preview , setPreview] = useState({})
+  const [ preview , setPreview] = useState({});
+  const [ active, setActive] = useState(0);
   const handleLogout = () =>{
       dispatch(deauthenticate())
   }
 
   const handleClick = () => {
-    setOpen(!open)
-  }
+    setOpen(!open);
+  };
 
   const reviewNotification = ( notification) => {
     console.log(notificacion)
     setShowPreview(!setPreview);
     setPreview(notification);
-    dispatch(updateNotification(notification._id))
-  }
+    dispatch(updateNotification(notification._id));
+  };
+  const openStyle = (index) => {
+    setActive(index);
+  };
 
   useEffect(() => {
     dispatch(getNotifications())
@@ -115,7 +48,7 @@ const Navbar = ({auth}) => {
       {
         (showMenu) && (
           <nav className="bg-blue-500 lg:w-3/12 fixed z-20 h-screen animated slideInLeft">
-            <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 ">
+            <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 overflow-y-auto ">
               <div className="relative flex items-center justify-between h-16">
                 <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
                 </div>
@@ -223,23 +156,25 @@ const Navbar = ({auth}) => {
                               <>
                               <div
                                 key={index}
-                                className="mt-1 block px-3 py-2 rounded-md text-base font-medium text-gray-300 focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out lg:text-xl">
+                                className="mt-1 block px-3 py-2 rounded-md text-base font-medium text-gray-300 focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out lg:text-xl cursor-pointer"
+                                onClick={() => openStyle(index)}>
                                 {i.name}
                               </div>
                               {
-                                i.subMenu.map((sub, index) =>(
-                                  <Link
-                                    href={sub.slug}
-                                    key={index}
-                                    >
-                                    <a 
-                                    onClick={ () => setShowMenu(!showMenu)}
-                                    className="block -mt-2 w-64 px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out pl-5">
-                                      <div  onClick={ () => handleClick()}>
-                                      {sub.name}
-                                      </div>
-                                    </a>
-                                  </Link>
+                                i.subMenu.map((sub) =>(
+                                  <div className={active === index ? 'block animated fadeIn' : 'hidden'}>
+                                    <Link
+                                      href={sub.slug}
+                                      >
+                                      <a 
+                                      onClick={ () => setShowMenu(!showMenu)}
+                                      className='block -mt-2 w-64 px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out pl-5'>
+                                        <div  onClick={ () => handleClick()}>
+                                        {sub.name}
+                                        </div>
+                                      </a>
+                                    </Link>
+                                  </div>
                                 ))
                               }
                               </>

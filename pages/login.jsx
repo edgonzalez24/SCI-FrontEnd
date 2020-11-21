@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
 import FormLogin from '../components/Login/formLogin';
-import Switch from '@material-ui/core/Switch';
 import Paper from '@material-ui/core/Paper';
 import Grow from '@material-ui/core/Grow';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { makeStyles } from '@material-ui/core/styles';
+import Head from 'next/head';
+
 const useStyles = makeStyles((theme) => ({
   root: {
     height: 180,
@@ -38,6 +38,10 @@ const Login = () => {
     setClose(!close)
   };
   return (
+    <>
+    <Head>
+      <title>Login - SCI</title>
+    </Head>
     <div className="w-full relative">
       <div className="flex flex-wrap">
         <div className="lg:w-1/2 w-full container mx-auto">
@@ -61,6 +65,7 @@ const Login = () => {
         </div>
       </div>
     </div>
+    </>
   );
 }
 

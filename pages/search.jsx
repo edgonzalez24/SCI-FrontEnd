@@ -1,10 +1,11 @@
-import {useEffect, useState} from 'react'
-import {useDispatch, useSelector}from 'react-redux';
+import {useEffect} from 'react'
+import {useSelector}from 'react-redux';
 import { connect } from 'react-redux';
 import Skeleton from '../components/customsPreloader/skeleton';
 import { newsBooks } from '../store/actions/bookAction';
 import SearchBook from '../components/Search/searchBook';
 import Link from 'next/link'
+import Head from 'next/head';
 
 const Search = ({books, newsBooks}) => {
   const {loading } = useSelector(state =>state.ui);
@@ -12,7 +13,11 @@ const Search = ({books, newsBooks}) => {
     newsBooks();
   },[]);
   return (
-    <div className="px-5">
+    <>
+      <Head>
+        <title>Búsqueda - SCI</title>
+      </Head>
+      <div className="px-5">
       <div className="lg:h-screen h-full">
         <div className="mb-5 mt-16">
           <SearchBook/>
@@ -70,6 +75,7 @@ const Search = ({books, newsBooks}) => {
         }
       </div>
     </div>
+    </>
   )
 }
 

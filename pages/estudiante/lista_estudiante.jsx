@@ -9,7 +9,7 @@ const AllStudent = ({auth}) => {
   return (
     <>
       <Head>
-        <title>Library APP</title>
+        <title>Estudiantes - SCI</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {

@@ -9,7 +9,7 @@ const AddInventory = ({auth}) => {
   return (
     <>
       <Head>
-        <title>Library APP</title>
+        <title>Categoria - SCI</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {
