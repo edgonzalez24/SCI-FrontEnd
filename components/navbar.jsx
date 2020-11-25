@@ -38,6 +38,8 @@ const Navbar = ({auth}) => {
     setActive(index);
   };
 
+  const filterNotification = notifications.filter(item => item.status === true);
+  console.log(filterNotification);
   useEffect(() => {
     dispatch(getNotifications())
   }, []);
@@ -48,7 +50,7 @@ const Navbar = ({auth}) => {
       {
         (showMenu) && (
           <nav className="bg-blue-500 lg:w-3/12 fixed z-20 h-screen animated slideInLeft">
-            <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 overflow-y-auto ">
+            <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 ">
               <div className="relative flex items-center justify-between h-16">
                 <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
                 </div>
@@ -81,42 +83,44 @@ const Navbar = ({auth}) => {
                         </div>
                         {
                           (showNotifications) && (
-                            (notifications) ? (
+                            (filterNotification.length > 0) ? (
                               <div>
-                                <div className="origin-top-right absolute right-0 mt-2 w-64 h-32 rounded-md shadow-lg z-30 animated fadeIn overflow-y-auto bg-white">
-                                  <div className="py-1 rounded-md shadow-xs" role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
-                                      {
-                                        (showPreview) ? (
-                                            notifications.map((notification, index) => (
-                                              (notification.status !== false) && (
-                                                  <a 
-                                                  key={index}
-                                                  href="#" 
-                                                  className="block px-2 py-2 text-xs leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out" role="menuitem"
-                                                  onClick={() => reviewNotification(notification)}>
-                                                    Tiene una notificacion de: {notification.name} {notification.lastname}...
-                                                  </a>
-                                                )
-                                            ))
-                                        ) : (
-                                        <div className="px-2">
-                                          <div
-                                            className="cursor-pointer text-gray-500 font-bold"
-                                            onClick={() => setShowPreview(!showPreview)}
-                                          >
-                                            X Regresar
-                                          </div>
-                                          <div className="block py-2 text-xs leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out animated fadeIn">
-                                          Tiene una notificacion de: {preview.name} {preview.lastname}, quien solicita un prestamos del siguiente ejemplar: {preview.bookName} con codigo ISBN: {preview.isbn}
-                                          </div>
+                                    <div className="origin-top-right absolute right-0 mt-2 w-64 h-32 rounded-md shadow-lg z-30 animated fadeIn bg-white">
+                                      <div className="py-1 rounded-md shadow-xs" role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
+                                          {
+                                            (showPreview) ? (
+                                                notifications.map((notification, index) => (
+                                                  (notification.status !== false) && (
+                                                      <a 
+                                                      key={index}
+                                                      href="#" 
+                                                      className="block px-2 py-2 text-xs leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out" role="menuitem"
+                                                      onClick={() => reviewNotification(notification)}>
+                                                        Tiene una notificacion de: {notification.name} {notification.lastname}...
+                                                      </a>
+                                                    )
+                                                ))
+                                            ) : (
+                                            <div className="px-2">
+                                              <div
+                                                className="cursor-pointer text-gray-500 font-bold"
+                                                onClick={() => setShowPreview(!showPreview)}
+                                              >
+                                                X Regresar
+                                              </div>
+                                              <div className="block py-2 text-xs leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out animated fadeIn">
+                                              Tiene una notificacion de: {preview.name} {preview.lastname}, quien solicita un prestamos del siguiente ejemplar: {preview.bookName} con codigo ISBN: {preview.isbn}
+                                              </div>
+                                            </div>
+                                            )
+                                          }
                                         </div>
-                                        )
-                                      }
-                                    </div>
+                                      </div>
                                   </div>
-                                </div>
                               ) : (
-                                <h6 className="italic">No tiene notificaciones</h6>
+                                <div className="origin-top-right absolute right-0 mt-2 w-64 h-12 rounded-md shadow-lg z-30 animated fadeIn bg-white flex items-center justify-center">
+                                  <p className=" text-center text-xs italic">No hay notificaciones por leer</p>
+                                </div>
                               )
                           )
                         }
