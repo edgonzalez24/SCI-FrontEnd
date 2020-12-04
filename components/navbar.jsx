@@ -8,6 +8,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import { deauthenticate } from '../store/actions/authAction';
 import { getNotifications, updateNotification } from '../store/actions/notificationsAction';
 import {mainMenu, AdminMenu} from '../public/global'
+import DarkMode from './DarkMode';
 
 const Navbar = ({auth}) => {
   const dispatch = useDispatch();
@@ -20,16 +21,17 @@ const Navbar = ({auth}) => {
   const [ showPreview , setShowPreview] = useState(true)
   const [ preview , setPreview] = useState({});
   const [ active, setActive] = useState(0);
+
+  // Close Session
   const handleLogout = () =>{
-      dispatch(deauthenticate())
+      dispatch(deauthenticate());
   }
 
   const handleClick = () => {
     setOpen(!open);
   };
 
-  const reviewNotification = ( notification) => {
-    console.log(notificacion)
+  const reviewNotification = notification => {
     setShowPreview(!setPreview);
     setPreview(notification);
     dispatch(updateNotification(notification._id));
@@ -39,9 +41,9 @@ const Navbar = ({auth}) => {
   };
 
   const filterNotification = notifications.filter(item => item.status === true);
-  console.log(filterNotification);
+
   useEffect(() => {
-    dispatch(getNotifications())
+    dispatch(getNotifications());
   }, []);
 
   return (
@@ -49,10 +51,11 @@ const Navbar = ({auth}) => {
     <div className="flex flex-wrap w-full">
       {
         (showMenu) && (
-          <nav className="bg-blue-500 lg:w-3/12 fixed z-20 h-screen animated slideInLeft">
-            <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 ">
+          <nav className="sidebar lg:w-3/12 fixed z-20 h-screen animated slideInLeft">
+            <div className="max-w-7xl mx-auto px-2 sm:px-6">
               <div className="relative flex items-center justify-between h-16">
-                <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
+                <div className="absolute inset-y-0 left-0 flex items-center ">
+                  <DarkMode />
                 </div>
                 <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
                   <div className="flex-shrink-0">
@@ -65,7 +68,7 @@ const Navbar = ({auth}) => {
                     <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                       <div className="relative">
                         <div>
-                          <button className="p-1 border-2 border-transparent text-gray-400 rounded-full hover:text-white focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out" aria-label="Notifications" onClick={() => setShowNotifications(!showNotifications)}>
+                          <button className="p-1 border-2 border-transparent color_text rounded-full focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out" aria-label="Notifications" onClick={() => setShowNotifications(!showNotifications)}>
                             <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
                             </svg>
@@ -85,7 +88,7 @@ const Navbar = ({auth}) => {
                           (showNotifications) && (
                             (filterNotification.length > 0) ? (
                               <div>
-                                    <div className="origin-top-right absolute right-0 mt-2 w-64 h-32 rounded-md shadow-lg z-30 animated fadeIn bg-white">
+                                    <div className="origin-top-right absolute right-0 mt-2 w-64 h-32 rounded-md shadow-lg z-30 animated fadeIn bg_color">
                                       <div className="py-1 rounded-md shadow-xs" role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
                                           {
                                             (showPreview) ? (
@@ -154,13 +157,13 @@ const Navbar = ({auth}) => {
                   mainMenu.map((item, index) =>(
                       (auth.token && item.name === 'Iniciar Sesion') ? (
                         <>
-                          <h2 className="text-xl w-56 text-white my-6 border-b border-white " key={index}>Menu de Administrador</h2>
+                          <h2 className="text-xl w-56 color_text my-6 border-b border-white " key={index}>Menu de Administrador</h2>
                           {
                             AdminMenu.map((i, index) => (
                               <>
                               <div
                                 key={index}
-                                className="mt-1 block px-3 py-2 rounded-md text-base font-medium text-gray-300 focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out lg:text-xl cursor-pointer"
+                                className="mt-1 block px-3 py-2 rounded-md text-base font-medium color_text focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out lg:text-xl cursor-pointer"
                                 onClick={() => openStyle(index)}>
                                 {i.name}
                               </div>
@@ -172,7 +175,7 @@ const Navbar = ({auth}) => {
                                       >
                                       <a 
                                       onClick={ () => setShowMenu(!showMenu)}
-                                      className='block -mt-2 w-64 px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out pl-5'>
+                                      className='block -mt-2 w-64 px-3 py-2 rounded-md text-base font-medium color_text hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out pl-5'>
                                         <div  onClick={ () => handleClick()}>
                                         {sub.name}
                                         </div>
@@ -191,7 +194,7 @@ const Navbar = ({auth}) => {
                           key={index}
                           >
                           <a 
-                          className="mt-1 w-64 block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out lg:text-xl"
+                          className="mt-1 w-64 block px-3 py-2 rounded-md text-base font-medium color_text hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700 transition duration-150 ease-in-out lg:text-xl"
                           onClick={ () => setShowMenu(!showMenu)}>
                             <div onClick={ () => handleClick()}>
                               {item.name}

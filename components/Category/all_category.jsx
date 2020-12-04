@@ -10,9 +10,11 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import Popup from 'reactjs-popup';
-import Edit_Category from './edit_category'
+import Edit_Category from './edit_category';
+import Pagination from '@material-ui/lab/Pagination';
 
-const All_Category = ({categories, getCategory}) => {
+
+const All_Category = ({categories, pages, getCategory}) => {
   const dispatch = useDispatch();
   const {loading, msgSuccess, msgError} = useSelector(state =>state.ui);
   const [show, setShow] = useState(false);

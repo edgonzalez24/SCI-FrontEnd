@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import Carousel from '../components/Home/carousel'
-export default function Home() {
+const Home = () => {
   return (
     <>
       <Head>
@@ -11,3 +11,5 @@ export default function Home() {
     </>
   )
 }
+
+export default Home;

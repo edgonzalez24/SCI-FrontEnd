@@ -12,6 +12,7 @@ const Layout =({ children, isAuthenticated }) => {
     <Head>
       <title>Library APP</title>
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css"></link>
+      <link rel="shortcut icon" href="/ico.png" type="image/x-icon"/>
     </Head>
     {
       (router.route !== '/registro' && router.route !== '/login') && (<Navbar/>)

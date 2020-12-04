@@ -1,9 +1,7 @@
 import React, {useState} from 'react';
 import FormRegister from '../components/Register/formRegister';
-import Switch from '@material-ui/core/Switch';
 import Paper from '@material-ui/core/Paper';
 import Grow from '@material-ui/core/Grow';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles((theme) => ({
   root: {

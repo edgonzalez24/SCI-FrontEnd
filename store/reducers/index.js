@@ -7,6 +7,8 @@ import { categoryReducer } from './categoryReducer';
 import { bookReducer } from './bookReducer';
 import { studentReducer } from './studentReducer';
 import { notificationsReducer } from './notificationsReducer';
+import { loansReducer } from './loanReducer';
+import { returnsReducer } from './returnReducer';
 
 const persistConfig = {
     key: 'root',
@@ -20,6 +22,8 @@ const rootReducer = combineReducers({
     book: bookReducer,
     student: studentReducer,
     notification: notificationsReducer,
+    loan: loansReducer,
+    return: returnsReducer,
     ui: uiReducer
 });
 

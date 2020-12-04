@@ -1,55 +1,69 @@
 import {useEffect, useState} from 'react'
 import {useDispatch, useSelector}from 'react-redux';
-import { getBook, deleteBook} from '../../store/actions/bookAction';
+import { getBook, searchBook} from '../../store/actions/bookAction';
 import Skeleton from '../customsPreloader/skeleton';
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { useTheme } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
-import Popup from 'reactjs-popup';
-import Edit_Book from './edit_book'
 import Pagination from '@material-ui/lab/Pagination';
 
-const All_Book = ({books, pages, getBook}) => {
+const List_Book = ({books, pages, getBook, selectedBook}) => {
   const dispatch = useDispatch();
   const {loading, msgSuccess, msgError} = useSelector(state =>state.ui);
-  const [show, setShow] = useState(false);
-  const [open, setOpen] = useState(false);
-  const theme = useTheme();
-  const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
-  const handleClickOpen = () => {
-    setOpen(true);
+  const [valueSearch, setValue] = useState('');
+
+  const handleChange = (event) => {
+    setValue(event.target.value);
   };
 
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const removeData = (id) => {
-    setOpen(false);
-    dispatch(deleteBook(id));
+  const handleKeyPress = (event) => {
+    if (valueSearch) {
+      if (event.key === 'Enter') {
+        dispatch(searchBook(valueSearch))
+        setTimeout(() => {
+          setValue('')
+        }, 1000);
+      }
+    }
   }
+
   const [currentPage, setCurrentPage] = useState(1);
-  const handleChange = (event,value) => {
+  const handleChangePage = (event,value) => {
     setCurrentPage(value);
     getBook(value);
   };
+
   useEffect(() => {
     getBook()
   }, [])
   return (
-    <div className="lg:h-screen bg-gray-300 overflow-hidden">
-      <div className="container mx-auto flex justify-center items-center h-full flex-col">
-  
+    <div className="animated fadeIn">
+      <div className="w-full">
+        <div className="flex justify-end">
+          <div id="search_input_container" className="w-full lg:w-1/3 mt-6 bg-input rounded-lg flex flex-row mb-4 relative items-center border border-blue-200 ">
+            <input
+              value={valueSearch}
+              type="text"
+              onKeyPress={handleKeyPress}
+              onChange={handleChange}
+              className="h-10 sm:h-10 md:h-12 w-full placeholder-gray-60 pl-4 bg-gray-200 rounded-lg focus:text-gray-cuenta-b focus:outline-none focus:bg-white focus:placeholder-opacity-0 transition duration-500 ease-in-out"
+              placeholder="Buscar libro"
+            />
+            <button
+              id="search_btn"
+              className="h-12 w-10 mx-auto absolute inset-y-0 right-0 focus:outline-none"
+            >
+                <img src="/icons/search.svg" alt="" />
+            </button>
+          </div>
+        </div>
+      </div>
+      <div className="w-full">
+      <div className="container mx-auto flex justify-center items-center h-full">
         <div className="lg:5/6 w-full">
-          <h2 className="text-lg lg:text-3xl text-blue-500 font-bold text-center animated slideInRight">Lista de libros</h2>
+          <h2 className="text-lg lg:text-3xl text-blue-500 font-bold text-center ">Lista de libros</h2>
           {
             (books.length > 0) ? (
-              <div className="overflow-hidden w-full">
-                <div className="bg-white shadow-lg rounded-lg animated slideInLeft">
+              <div className="w-full">
+                <div className="bg-white shadow-lg rounded-lg">
                 {
                   (loading) ? (<Skeleton/>) : (
                     <div className="flex flex-col">
@@ -102,36 +116,21 @@ const All_Book = ({books, pages, getBook}) => {
                                   {book.status ? 'Disponible' : 'No Disponible'}
                                 </span>
                               </td>
-                              <td className="px-6 py-4 whitespace-no-wrap text-right text-sm leading-5 font-medium flex justify-between ">
-                                <Popup trigger={<button type="button" className="focus:outline-none text-indigo-600 hover:text-indigo-900">Editar </button>} modal>
-                                {(close) => (
-                                  <div className="modal animated slideInLeft">
-                                    <button type="button" className="close" onClick={close}>
-                                      &times;
-                                    </button>
-                                    <Edit_Book bookInfo={book}/>
-                                  </div>
-                                )}
-                              </Popup>
-                                <Button variant="outlined" color="primary"  className="text-red-500 hover:text-red-700 focus:outline-none border border-red-500" onClick={handleClickOpen}>
-                                  Eliminar
-                                </Button>
-                                <Dialog
-                                  fullScreen={fullScreen}
-                                  open={open}
-                                  onClose={handleClose}
-                                  aria-labelledby="responsive-dialog-title"
-                                >
-                                  <DialogTitle id="responsive-dialog-title">{"¿Desea Eliminar este registro?"}</DialogTitle>
-                                  <DialogActions>
-                                    <Button autoFocus onClick={handleClose} color="primary" className="focus:outline-none">
-                                      Cancelar
-                                    </Button>
-                                    <Button onClick={() => removeData(book._id)} color="primary" className="focus:outline-none" autoFocus>
-                                      Confirmar
-                                    </Button>
-                                  </DialogActions>
-                                </Dialog>
+                              <td className="px-6 py-4 whitespace-no-wrap text-center text-base leading-5 font-medium">
+                                {
+                                  (book.status) ? (
+                                    <button
+                                    className="text-white bg-blue-500 hover:text-blue-500 hover:bg-transparent focus:outline-none border border-blue-500 px-4 py-2 rounded-md transition duration-500 ease-in-out"
+                                    onClick={() => selectedBook(book._id)}
+                                  >
+                                    Añadir
+                                  </button>
+                                  ) : (
+                                    <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                                      No Disponible
+                                    </span>
+                                  )
+                                }
                               </td>
                             </tr>
                           </tbody>
@@ -168,13 +167,15 @@ const All_Book = ({books, pages, getBook}) => {
           </div>
                 )
               }
+        </div>
         <div className="mt-5 w-full flex justify-center">
-          <Pagination count={pages} className="focus:outline-none" onChange={handleChange} />
+          <Pagination count={pages} defaultPage={1} className="focus:outline-none" onChange={handleChangePage} />
         </div>
       </div>
     </div>
   )
 }
+
 const mapStateToProps = (state) => ({
   books: state.book.books,
   pages: state.book.pages,
@@ -183,4 +184,5 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   getBook: (currentPage) => dispatch(getBook(currentPage))
 });
-export default connect(mapStateToProps, mapDispatchToProps)(All_Book);
+
+export default connect(mapStateToProps, mapDispatchToProps)(List_Book);

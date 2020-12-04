@@ -71,7 +71,7 @@ return (
             <div className="lg:h-screen bg-gray-300 ">
               <div className="container mx-auto flex justify-center items-center h-full">
                 <div className="lg:w-4/6 w-full">
-                  <h2 className="text-lg lg:text-3xl text-blue-500 font-bold text-center animated slideInRight">Agregar libros a inventario</h2>
+                  <h2 className="text-lg lg:text-3xl titles font-bold text-center animated slideInRight">Agregar libros a inventario</h2>
                   <div className="w-full overflow-hidden">
                     <form className="bg-white shadow-lg rounded-lg px-8 pt-6 pb-8 mb-4 animated slideInLeft" onSubmit={handleSubmit}>
                       <div className="flex flex-wrap">

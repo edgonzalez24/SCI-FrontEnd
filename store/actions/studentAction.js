@@ -11,7 +11,8 @@ export const addStudent = (name, lastname, genre, academic_degree, section, teac
             genre,
             academic_degree,
             section,
-            teacher
+            teacher,
+            loanStatus: false
         }).then((response) => {
             dispatch(finishLoading());
             dispatch(setSuccess(response.data.message));
@@ -29,10 +30,10 @@ export const addStudent = (name, lastname, genre, academic_degree, section, teac
 }
 
 
-export const getStudents = () => {
+export const getStudents = (currentPage) => {
     return (dispatch) => {
         dispatch(startLoading());
-        axios.get('/students/all')
+        axios.get(`/students/all?pages=${currentPage}`)
             .then((response) => {
                 dispatch({
                     type: types.GETSTUDENTS,
@@ -90,7 +91,7 @@ export const editStudent = (_id, name, lastname, genre, academic_degree, section
             genre,
             academic_degree,
             section,
-            teacher
+            teacher,
         }).then((response) => {
             dispatch(setSuccess(response.data.message));
             axios.get('/students/all')
@@ -116,5 +117,26 @@ export const editStudent = (_id, name, lastname, genre, academic_degree, section
             }, 5000);
             dispatch(finishLoading());
         })
+    }
+}
+
+export const searchStudent = (keyword) => {
+    return (dispatch) => {
+        dispatch(startLoading());
+        axios.get(`/students/search?name=${keyword}`)
+            .then((response) => {
+                dispatch({
+                    type: types.GETSTUDENTS,
+                    payload: response.data
+                });
+                dispatch(finishLoading());
+            })
+            .catch((error) => {
+                dispatch(setError(error.response.data.message))
+                setTimeout(() => {
+                    dispatch(setError(null))
+                }, 5000);
+                dispatch(finishLoading());
+            })
     }
 }

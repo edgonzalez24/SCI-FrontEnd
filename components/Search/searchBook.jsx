@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { search } from '../../store/actions/bookAction';
+import { searchBook } from '../../store/actions/bookAction';
 import {useDispatch, useSelector}from 'react-redux';
 
 const SearchBook = () => {
@@ -13,7 +13,7 @@ const SearchBook = () => {
   const handleKeyPress = (event) => {
     if (valueSearch) {
       if (event.key === 'Enter') {
-        dispatch(search(valueSearch))
+        dispatch(searchBook(valueSearch))
         setTimeout(() => {
           setValue('')
         }, 1000);
@@ -22,7 +22,7 @@ const SearchBook = () => {
   }
 
   return (
-    <div className="">
+    <div className="w-full">
       <div className="flex justify-end">
         <div id="search_input_container" class="w-full lg:w-1/3 mt-6 bg-input rounded-lg flex flex-row mb-10 relative items-center border border-blue-200 ">
           <input

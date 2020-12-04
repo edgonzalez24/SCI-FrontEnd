@@ -60,10 +60,10 @@ export const deleteBook = (id) => {
     }
 }
 
-export const getBook = () => {
+export const getBook = (currentPage = 1) => {
     return (dispatch) => {
         dispatch(startLoading());
-        axios.get('/book/all')
+        axios.get(`/book/all?pages=${currentPage}`)
             .then((response) => {
                 dispatch({
                     type: types.GETBOOK,
@@ -143,10 +143,10 @@ export const editBook = (_id, title, isbn, editor, editorial, datePublication, c
     }
 }
 
-export const search = (keyword) => {
+export const searchBook = (keyword) => {
     return (dispatch) => {
         dispatch(startLoading());
-        axios.get(`/search?title_book=${keyword}`)
+        axios.get(`/book/search?title_book=${keyword}`)
             .then((response) => {
                 dispatch({
                     type: types.GETBOOK,

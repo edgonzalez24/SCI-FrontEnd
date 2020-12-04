@@ -2,18 +2,22 @@ import Head from 'next/head';
 import { connect } from 'react-redux';
 import initialize from '../../utils/initialize';
 import actions from '../../store/actions';
-import Add_Book from '../../components/Book/add_book';
+import All_lead from '../../components/Leads/All_lead';
 
-const AddBook = ({auth}) => {
+const ListLead = ({auth}) => {
 
   return (
     <>
       <Head>
-        <title>Libros - SCI</title>
+        <title>Prestamos - SCI</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {
-        auth.token ? (<Add_Book/>) : (
+        auth.token ? (
+          <div className="h-min-screen">
+            <All_lead/>  
+          </div>
+        ) : (
           <div className="h-screen flex justify-center items-center">
             <p>Porfavor! authentificarse</p>
           </div>
@@ -23,8 +27,8 @@ const AddBook = ({auth}) => {
   )
 }
 
-AddBook.getInitialProps = async(ctx) => {
+ListLead.getInitialProps = async(ctx) => {
   await initialize(ctx);
 }
 
-export default connect(state => state, actions)(AddBook);
+export default connect(state => state, actions)(ListLead);

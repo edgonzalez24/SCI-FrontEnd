@@ -10,9 +10,10 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import Popup from 'reactjs-popup';
-import Edit_Student from './edit_student'
+import Edit_Student from './edit_student';
+import Pagination from '@material-ui/lab/Pagination';
 
-const All_Student = ({students, getStudents}) => {
+const All_Student = ({students, pages, getStudents}) => {
   const dispatch = useDispatch();
   const {loading, msgSuccess, msgError} = useSelector(state =>state.ui);
   const [show, setShow] = useState(false);
@@ -32,12 +33,17 @@ const All_Student = ({students, getStudents}) => {
     setOpen(false);
     dispatch(deleteStudent(id));
   }
+  const [currentPage, setCurrentPage] = useState(1);
+  const handleChange = (event,value) => {
+    setCurrentPage(value);
+    getStudents(value);
+  };
   useEffect(() => {
-    getStudents();
-},[]);
+    getStudents()
+  }, [])
   return (
     <div className="lg:h-screen bg-gray-300 overflow-hidden">
-      <div className="container mx-auto flex justify-center items-center h-full">
+      <div className="container mx-auto flex justify-center items-center flex-col h-full">
         <div className="lg:5/6 w-full">
           <h2 className="text-lg lg:text-3xl text-blue-500 font-bold text-center animated slideInRight">Lista de estudiantes</h2>
           {
@@ -160,15 +166,19 @@ const All_Student = ({students, getStudents}) => {
           </div>
                 )
               }
+        <div className="mt-5 w-full flex justify-center">
+          <Pagination count={pages} className="focus:outline-none" onChange={handleChange} />
+        </div>
       </div>
     </div>
   )
 }
 const mapStateToProps = (state) => ({
   students: state.student.students,
+  pages: state.student.pages,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getStudents: () => dispatch(getStudents())
+  getStudents: (currentPage) => dispatch(getStudents(currentPage))
 });
 export default connect(mapStateToProps, mapDispatchToProps)(All_Student);
