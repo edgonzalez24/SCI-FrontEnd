@@ -4,24 +4,14 @@ import {useEffect} from 'react'
 import {useDispatch, useSelector}from 'react-redux';
 import { getCategory } from '../../store/actions/categoryAction';
 import {addBook} from '../../store/actions/bookAction';
-import Slide from '@material-ui/core/Slide';
-
-function TransitionDown(props) {
-  return <Slide {...props} direction="down" />;
-}
 
 
 
-const Add_Book = () => {
+const AddBook = () => {
   const [open, setOpen] = React.useState(true);
-  const [transition, setTransition] = React.useState(undefined);
   const dispatch = useDispatch();
   const { categories } =  useSelector(state =>state.category);
   const {loading, msgSuccess, msgError} = useSelector(state =>state.ui);
-
-  const handleClose = () => {
-    setOpen(false);
-  };
 
   useEffect(() => {
     dispatch(getCategory());
@@ -68,7 +58,7 @@ return (
         } = props;
 
         return (
-            <div className="lg:h-screen bg-gray-300 ">
+            <div className="lg:h-screen bg_blue_gray">
               <div className="container mx-auto flex justify-center items-center h-full">
                 <div className="lg:w-4/6 w-full">
                   <h2 className="text-lg lg:text-3xl titles font-bold text-center animated slideInRight">Agregar libros a inventario</h2>
@@ -253,4 +243,4 @@ return (
 )
 }
 
-export default Add_Book ;
+export default AddBook ;

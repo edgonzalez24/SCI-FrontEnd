@@ -17,9 +17,8 @@ const Search = ({books, newsBooks}) => {
       <Head>
         <title>Búsqueda - SCI</title>
       </Head>
-      <div className="px-5">
-      <div className="lg:h-screen h-full">
-        <div className="mb-5 mt-16">
+      <div className="px-5 bg_white_gray lg:h-screen h-full">
+        <div className="mb-5 pt-12">
           <SearchBook/>
         </div>
         <h2 className="poppins font-bold text-4xl text-blue-500 text-center">Busqueda de libros:</h2>
@@ -74,7 +73,6 @@ const Search = ({books, newsBooks}) => {
           )
         }
       </div>
-    </div>
     </>
   )
 }

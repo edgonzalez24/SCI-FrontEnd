@@ -1,14 +1,13 @@
 import {useEffect, useState} from 'react'
 import {useDispatch, useSelector}from 'react-redux';
-import { getStudents, searchStudent } from '../../store/actions/studentAction';
+import { getBook, searchBook} from '../../store/actions/bookAction';
 import Skeleton from '../customsPreloader/skeleton';
 import { connect } from 'react-redux';
 import Pagination from '@material-ui/lab/Pagination';
 
-const List_Students = ({students, pages, getStudents, selectedStudent}) => {
+const ListBook = ({books, pages, getBook, selectedBook}) => {
   const dispatch = useDispatch();
   const {loading, msgSuccess, msgError} = useSelector(state =>state.ui);
-
   const [valueSearch, setValue] = useState('');
 
   const handleChange = (event) => {
@@ -18,25 +17,25 @@ const List_Students = ({students, pages, getStudents, selectedStudent}) => {
   const handleKeyPress = (event) => {
     if (valueSearch) {
       if (event.key === 'Enter') {
-        dispatch(searchStudent(valueSearch))
+        dispatch(searchBook(valueSearch))
         setTimeout(() => {
           setValue('')
         }, 1000);
       }
     }
   }
+
   const [currentPage, setCurrentPage] = useState(1);
   const handleChangePage = (event,value) => {
     setCurrentPage(value);
-    getStudents(value);
+    getBook(value);
   };
-  useEffect(() => {
-    getStudents()
-  }, [])
 
+  useEffect(() => {
+    getBook()
+  }, [])
   return (
     <div className="animated fadeIn">
-      <div className="w-full h-min-screen">
       <div className="w-full">
         <div className="flex justify-end">
           <div id="search_input_container" className="w-full lg:w-1/3 mt-6 bg-input rounded-lg flex flex-row mb-4 relative items-center border border-blue-200 ">
@@ -46,22 +45,23 @@ const List_Students = ({students, pages, getStudents, selectedStudent}) => {
               onKeyPress={handleKeyPress}
               onChange={handleChange}
               className="h-10 sm:h-10 md:h-12 w-full placeholder-gray-60 pl-4 bg-gray-200 rounded-lg focus:text-gray-cuenta-b focus:outline-none focus:bg-white focus:placeholder-opacity-0 transition duration-500 ease-in-out"
-              placeholder="Buscar estudiante"
+              placeholder="Buscar libro"
             />
             <button
               id="search_btn"
               className="h-12 w-10 mx-auto absolute inset-y-0 right-0 focus:outline-none"
             >
-                <img src="/icons/search.svg" alt="icon-search" onClick={handleChange} />
+                <img src="/icons/search.svg" alt="" />
             </button>
           </div>
         </div>
       </div>
+      <div className="w-full">
       <div className="container mx-auto flex justify-center items-center h-full">
-        <div className="w-full">
-          <h2 className="text-lg lg:text-3xl text-blue-500 font-bold text-center">Lista de estudiantes</h2>
+        <div className="lg:5/6 w-full">
+          <h2 className="text-lg lg:text-3xl text-blue-500 font-bold text-center ">Lista de libros</h2>
           {
-            (students.length > 0) ? (
+            (books.length > 0) ? (
               <div className="w-full">
                 <div className="bg-white shadow-lg rounded-lg">
                 {
@@ -74,19 +74,19 @@ const List_Students = ({students, pages, getStudents, selectedStudent}) => {
                           <thead>
                             <tr>
                               <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                                Número
+                                Nombre de Libro
                               </th>
                               <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                                Nombre del Estudiante
+                                Categoria
                               </th>
                               <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                                Género
+                                Autor
                               </th>
                               <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                                Grado Escolar
+                                Editorial
                               </th>
                               <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                                Docente Responsable
+                                Estado
                               </th>
                               <th className="px-6 py-3 bg-gray-50 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
                                 Acciones
@@ -94,38 +94,40 @@ const List_Students = ({students, pages, getStudents, selectedStudent}) => {
                             </tr>
                           </thead>
                           {
-                            students.map( (student, index) => (
+                            books.map( (book, index) => (
                               <tbody 
                               key={index}
                               className="bg-white divide-y divide-gray-200">
                             <tr>
                               <td className="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
-                                {index + 1}
+                                {book.title_book}
                               </td>
                               <td className="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
-                                { `${student.name} ${student.lastname}` }
+                                { (book.category) ? book.category.name_category : 'Sin Categoria' }
                               </td>
                               <td className="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
-                                {student.genre}
+                                {book.autor}
                               </td>
                               <td className="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
-                                {student.academic_degree}
+                                {book.editorial}
                               </td>
-                              <td className="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
-                                {student.teacher}
+                              <td className="px-6 py-4 whitespace-no-wrap">
+                                <span className={book.status ? "px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800" :"px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800" }>
+                                  {book.status ? 'Disponible' : 'No Disponible'}
+                                </span>
                               </td>
                               <td className="px-6 py-4 whitespace-no-wrap text-center text-base leading-5 font-medium">
                                 {
-                                  (!student.loanStatus) ? (
+                                  (book.status) ? (
                                     <button
-                                      className="text-white bg-blue-500 hover:text-blue-500 hover:bg-transparent focus:outline-none border border-blue-500 px-4 py-2 rounded-md transition duration-500 ease-in-out"
-                                      onClick={() => selectedStudent(student._id)}
-                                    >
-                                      Añadir
-                                    </button>
+                                    className="text-white bg-blue-500 hover:text-blue-500 hover:bg-transparent focus:outline-none border border-blue-500 px-4 py-2 rounded-md transition duration-500 ease-in-out"
+                                    onClick={() => selectedBook(book._id)}
+                                  >
+                                    Añadir
+                                  </button>
                                   ) : (
                                     <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
-                                      Tiene un prestamo
+                                      No Disponible
                                     </span>
                                   )
                                 }
@@ -173,13 +175,14 @@ const List_Students = ({students, pages, getStudents, selectedStudent}) => {
     </div>
   )
 }
+
 const mapStateToProps = (state) => ({
-  students: state.student.students,
-  pages: state.student.pages,
+  books: state.book.books,
+  pages: state.book.pages,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getStudents: (currentPage) => dispatch(getStudents(currentPage))
+  getBook: (currentPage) => dispatch(getBook(currentPage))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps) (List_Students);
+export default connect(mapStateToProps, mapDispatchToProps)(ListBook);

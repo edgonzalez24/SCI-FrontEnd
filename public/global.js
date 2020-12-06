@@ -134,5 +134,39 @@ export const AdminMenu = [{
                 slug: "/prestamo/lista_prestamo"
             }
         ]
+    },
+    {
+        id: 5,
+        name: "Devoluciones",
+        subMenu: [{
+            id: 1,
+            name: "Listado de devoluciones",
+            slug: "/devoluciones/lista_devolucion"
+        }, ]
     }
+];
+
+export const meses = [
+    "Enero",
+    "Febrero",
+    "Marzo",
+    "Abril",
+    "Mayo",
+    "Junio",
+    "Julio",
+    "Agosto",
+    "Septiembre",
+    "Octubre",
+    "Noviembre",
+    "Diciembre",
+];
+
+export const dias = [
+    "Domingo",
+    "Lunes",
+    "Martes",
+    "Miércoles",
+    "Jueves",
+    "viernes",
+    "Sábado",
 ]

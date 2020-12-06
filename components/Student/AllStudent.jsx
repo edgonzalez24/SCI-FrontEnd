@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react'
 import {useDispatch, useSelector}from 'react-redux';
-import { getCategory, deleteCategory} from '../../store/actions/categoryAction';
+import { getStudents, deleteStudent } from '../../store/actions/studentAction';
 import Skeleton from '../customsPreloader/skeleton';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -10,11 +10,10 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import Popup from 'reactjs-popup';
-import Edit_Category from './edit_category';
+import EditStudent from './EditStudent';
 import Pagination from '@material-ui/lab/Pagination';
 
-
-const All_Category = ({categories, pages, getCategory}) => {
+const All_Student = ({students, pages, getStudents}) => {
   const dispatch = useDispatch();
   const {loading, msgSuccess, msgError} = useSelector(state =>state.ui);
   const [show, setShow] = useState(false);
@@ -32,18 +31,23 @@ const All_Category = ({categories, pages, getCategory}) => {
 
   const removeData = (id) => {
     setOpen(false);
-    dispatch(deleteCategory(id));
+    dispatch(deleteStudent(id));
   }
+  const [currentPage, setCurrentPage] = useState(1);
+  const handleChange = (event,value) => {
+    setCurrentPage(value);
+    getStudents(value);
+  };
   useEffect(() => {
-      getCategory();
-  },[]);
+    getStudents()
+  }, [])
   return (
-    <div className="lg:h-screen bg-gray-300 overflow-hidden">
-      <div className="container mx-auto flex justify-center items-center h-full">
+    <div className="lg:h-screen bg_blue_gray overflow-hidden">
+      <div className="container mx-auto flex justify-center items-center flex-col h-full">
         <div className="lg:5/6 w-full">
-          <h2 className="text-lg lg:text-3xl text-blue-500 font-bold text-center animated slideInRight">Lista de categorias</h2>
+          <h2 className="text-lg lg:text-3xl text-blue-500 font-bold text-center animated slideInRight">Lista de Estudiantes Registrados</h2>
           {
-            (categories.length > 0) ? (
+            (students.length > 0) ? (
               <div className="overflow-hidden w-full">
                 <div className="bg-white shadow-lg rounded-lg animated slideInLeft">
                 {
@@ -59,7 +63,16 @@ const All_Category = ({categories, pages, getCategory}) => {
                                 Número
                               </th>
                               <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                                Nombre de Categoria
+                                Nombre del Estudiante
+                              </th>
+                              <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                                Género
+                              </th>
+                              <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                                Grado Escolar
+                              </th>
+                              <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                                Docente Responsable
                               </th>
                               <th className="px-6 py-3 bg-gray-50 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
                                 Acciones
@@ -67,7 +80,7 @@ const All_Category = ({categories, pages, getCategory}) => {
                             </tr>
                           </thead>
                           {
-                            categories.map( (category, index) => (
+                            students.map( (student, index) => (
                               <tbody 
                               key={index}
                               className="bg-white divide-y divide-gray-200">
@@ -76,22 +89,34 @@ const All_Category = ({categories, pages, getCategory}) => {
                                 {index + 1}
                               </td>
                               <td className="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
-                                {category.name_category}
+                                { `${student.name} ${student.lastname}` }
+                              </td>
+                              <td className="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
+                                {student.genre}
+                              </td>
+                              <td className="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
+                                {student.academic_degree}
+                              </td>
+                              <td className="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
+                                {student.teacher}
                               </td>
                               <td className="px-6 py-4 whitespace-no-wrap text-right text-sm leading-5 font-medium flex justify-between ">
-                                <Popup trigger={<button type="button" className="focus:outline-none text-indigo-600 hover:text-indigo-900">Editar </button>} modal>
+                                <Popup trigger={<button type="button" className="focus:outline-none text-indigo-600 hover:text-indigo-800 font-bold">Editar </button>} modal>
                                 {(close) => (
                                   <div className="modal animated slideInLeft">
                                     <button type="button" className="close" onClick={close}>
                                       &times;
                                     </button>
-                                    <Edit_Category categoryInfo={category}/>
+                                    <EditStudent studentInfo={student}/>
                                   </div>
                                 )}
                               </Popup>
-                                <Button variant="outlined" color="primary"  className="text-red-500 hover:text-red-700 focus:outline-none border border-red-500" onClick={handleClickOpen}>
+                              <button className="text-white font-bold bg-red-700 hover:bg-red-600 focus:outline-none border flex items-center py-3 px-5 rounded-md transition duration-500 ease-in-out" onClick={handleClickOpen}>
                                   Eliminar
-                                </Button>
+                                  <span className="ml-1">
+                                    <img src="/icons/trash.svg" alt="icon-trash" className="w-4 h-4"/>
+                                  </span>
+                                </button>
                                 <Dialog
                                   fullScreen={fullScreen}
                                   open={open}
@@ -103,7 +128,7 @@ const All_Category = ({categories, pages, getCategory}) => {
                                     <Button autoFocus onClick={handleClose} color="primary" className="focus:outline-none">
                                       Cancelar
                                     </Button>
-                                    <Button onClick={() => removeData(category._id)} color="primary" className="focus:outline-none" autoFocus>
+                                    <Button onClick={() => removeData(student._id)} color="primary" className="focus:outline-none" autoFocus>
                                       Confirmar
                                     </Button>
                                   </DialogActions>
@@ -144,15 +169,19 @@ const All_Category = ({categories, pages, getCategory}) => {
           </div>
                 )
               }
+        <div className="mt-5 w-full flex justify-center">
+          <Pagination count={pages} className="focus:outline-none" onChange={handleChange} />
+        </div>
       </div>
     </div>
   )
 }
 const mapStateToProps = (state) => ({
-  categories: state.category.categories,
+  students: state.student.students,
+  pages: state.student.pages,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getCategory: () => dispatch(getCategory())
+  getStudents: (currentPage) => dispatch(getStudents(currentPage))
 });
-export default connect(mapStateToProps, mapDispatchToProps)(All_Category);
+export default connect(mapStateToProps, mapDispatchToProps)(All_Student);

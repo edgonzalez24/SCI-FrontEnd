@@ -29,8 +29,8 @@ export const Login = (email, password) => {
                 setCookie('token', information.token);
                 Router.push('/libros/agregar_libro');
             })
-            .catch(err => {
-                dispatch(setError(err.response.message))
+            .catch(error => {
+                dispatch(setError(error.response.data.message))
                 setTimeout(() => {
                     dispatch(setError(null))
                 }, 5000);

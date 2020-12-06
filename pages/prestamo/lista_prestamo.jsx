@@ -2,9 +2,9 @@ import Head from 'next/head';
 import { connect } from 'react-redux';
 import initialize from '../../utils/initialize';
 import actions from '../../store/actions';
-import All_lead from '../../components/Leads/All_lead';
+import AllLead from '../../components/Leads/AllLead';
 
-const ListLead = ({auth}) => {
+const All_Lead = ({auth}) => {
 
   return (
     <>
@@ -13,11 +13,7 @@ const ListLead = ({auth}) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {
-        auth.token ? (
-          <div className="h-min-screen">
-            <All_lead/>  
-          </div>
-        ) : (
+        auth.token ? (<AllLead/>) : (
           <div className="h-screen flex justify-center items-center">
             <p>Porfavor! authentificarse</p>
           </div>
@@ -27,8 +23,8 @@ const ListLead = ({auth}) => {
   )
 }
 
-ListLead.getInitialProps = async(ctx) => {
+All_Lead.getInitialProps = async(ctx) => {
   await initialize(ctx);
 }
 
-export default connect(state => state, actions)(ListLead);
+export default connect(state => state, actions)(All_Lead);

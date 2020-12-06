@@ -2,7 +2,8 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import {useEffect} from 'react'
 import {useDispatch, useSelector}from 'react-redux';
-import {editStudent} from '../../store/actions/studentAction';
+import { getCategory } from '../../store/actions/categoryAction';
+import {addStudent} from '../../store/actions/studentAction';
 import Slide from '@material-ui/core/Slide';
 import {genreStudent, AcademicDegree, sectionStudent, teachers} from '../../public/global'
 
@@ -12,8 +13,7 @@ function TransitionDown(props) {
 
 
 
-const Edit_Estudent = (props) => {
-  const { _id, name, lastname, genre, academic_degree, section, teacher } = props.studentInfo;
+const Add_Estudent = () => {
   const [open, setOpen] = React.useState(true);
   const [transition, setTransition] = React.useState(undefined);
   const dispatch = useDispatch();
@@ -26,13 +26,13 @@ const Edit_Estudent = (props) => {
 
 return (
   <Formik
-      initialValues={{ name: name  , lastname: lastname, genre: genre, academic_degree: academic_degree, section:section , teacher:teacher}}
+      initialValues={{ name: ""  , lastname:"", genre:"", academic_degree:"", section:"" , teacher:""}}
       onSubmit={async (values, {resetForm}) => {
         await new Promise(resolve => setTimeout(resolve, 500));
         const v = JSON.stringify(values, null, 2);
         const val = JSON.parse(v)
         // document.querySelector("#loading").style.display= 'block'
-        dispatch(editStudent(_id,val.name, val.lastname, val.genre, val.academic_degree, val.section, val.teacher))
+        dispatch(addStudent(val.name, val.lastname, val.genre, val.academic_degree, val.section, val.teacher))
         setTimeout(() => {
             resetForm();
             // document.querySelector("#loading").style.display= 'none'
@@ -62,12 +62,12 @@ return (
         } = props;
 
         return (
-            <div className="bg-white pt-5">
+            <div className="lg:h-screen bg_blue_gray overflow-hidden">
               <div className="container mx-auto flex justify-center items-center h-full">
-                <div className="w-full">
-                  <h2 className="text-lg lg:text-3xl text-blue-500 font-bold text-center animated slideInRight">Actualizar Estudiante</h2>
+                <div className="lg:w-4/6 w-full">
+                  <h2 className="text-lg lg:text-3xl text-blue-500 font-bold text-center animated slideInRight">Agregar Nuevo Estudiante</h2>
                   <div className="w-full overflow-hidden">
-                    <form className="rounded-lg px-8 pt-6 pb-8 mb-4 animated slideInLeft" onSubmit={handleSubmit}>
+                    <form className="bg-white shadow-lg rounded-lg px-8 pt-6 pb-8 mb-4 animated slideInLeft" onSubmit={handleSubmit}>
                       <div className="flex flex-wrap">
                         <div className="w-full">
                           <div className="flex flex-wrap -mx-3 mb-6">
@@ -86,9 +86,7 @@ return (
                                 errors.name && touched.name ? 
                                 "appearance-none block w-full bg-gray-200 text-gray-700 border-2 border-red-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white" : "appearance-none block w-full bg-gray-200 text-gray-700 border-2 border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
                               } 
-                              type="text"
-                              placeholder={name}
-                              />
+                              type="text" placeholder="Escriba el nombre del estudiante"/>
                               {errors.name && touched.name && (
                               <div className="text-red-700 text-xs">{errors.name}</div>
                             )}
@@ -107,8 +105,7 @@ return (
                                 errors.lastname && touched.lastname ? 
                                 "appearance-none block w-full bg-gray-200 text-gray-700 border-2 border-red-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white" : "appearance-none block w-full bg-gray-200 text-gray-700 border-2 border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"} 
                               
-                              type="text"
-                              placeholder={lastname}/>
+                              type="text" placeholder="Escriba el apellido del estudiante"/>
                               {errors.lastname && touched.lastname && (
                               <div className="text-red-700 text-xs">{errors.lastname}</div>
                             )}
@@ -127,7 +124,7 @@ return (
                                     onChange={handleChange}
                                     onBlur={handleBlur}
                                     className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
-                                    <option value={genre} >{genre}</option>
+                                    <option value="" >Seleccione un género</option>
                                     {
                                       genreStudent.map( (item, index) => (
                                       <option key={index} value={item.genre}>{item.genre}</option>
@@ -154,7 +151,7 @@ return (
                                     onChange={handleChange}
                                     onBlur={handleBlur}
                                     className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
-                                    <option value={academic_degree} >{academic_degree}</option>
+                                    <option value="" >Seleccione un grado</option>
                                     {
                                       AcademicDegree.map( (item, index) => (
                                       <option key={index} value={item.degree}>{item.degree}</option>
@@ -186,7 +183,7 @@ return (
                                     onChange={handleChange}
                                     onBlur={handleBlur}
                                     className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
-                                    <option value={section} >{section}</option>
+                                    <option value="" >Seleccione una sección</option>
                                     {
                                       sectionStudent.map( (item, index) => (
                                       <option key={index} value={item.section}>{item.section}</option>
@@ -211,7 +208,7 @@ return (
                                     onChange={handleChange}
                                     onBlur={handleBlur}
                                     className="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
-                                    <option value={teacher} >{teacher}</option>
+                                    <option value="" >Seleccione un docente</option>
                                     {
                                       teachers.map( (item, index) => (
                                       <option key={index} value={item.name}>{item.name}</option>
@@ -247,6 +244,20 @@ return (
                   </div>
                 </div>
               </div>
+              {
+                (msgError || msgSuccess) && (
+                  <div className="overflow-hidden">
+                    <div className={
+                    msgError ? 'flex items-center bg-red-500 text-white text-sm font-bold px-4 py-3 absolute right-0 animated bounceInUp z-20' : 'flex items-center bg-blue-500 text-white text-sm font-bold px-4 py-3 absolute right-0 animated bounceInUp z-20'
+                  }
+                  style={{'top': '90%'}}
+                  role="alert">
+                      <svg className="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M12.432 0c1.34 0 2.01.912 2.01 1.957 0 1.305-1.164 2.512-2.679 2.512-1.269 0-2.009-.75-1.974-1.99C9.789 1.436 10.67 0 12.432 0zM8.309 20c-1.058 0-1.833-.652-1.093-3.524l1.214-5.092c.211-.814.246-1.141 0-1.141-.317 0-1.689.562-2.502 1.117l-.528-.88c2.572-2.186 5.531-3.467 6.801-3.467 1.057 0 1.233 1.273.705 3.23l-1.391 5.352c-.246.945-.141 1.271.106 1.271.317 0 1.357-.392 2.379-1.207l.6.814C12.098 19.02 9.365 20 8.309 20z"/></svg>
+                      <p>{msgError || msgSuccess}</p>
+                    </div>
+                  </div>
+                )
+              }
             </div>
         )
       }
@@ -255,4 +266,4 @@ return (
 )
 }
 
-export default Edit_Estudent ;
+export default Add_Estudent ;

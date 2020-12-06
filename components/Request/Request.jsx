@@ -5,7 +5,7 @@ import { requestBook } from '../../store/actions/bookAction';
 
 
 
-const Add_Request = ({infoBook}) => {
+const Request = ({infoBook}) => {
   const dispatch = useDispatch();
   const {loading, msgSuccess, msgError} = useSelector(state =>state.ui);
 
@@ -143,4 +143,4 @@ return (
 )
 }
 
-export default Add_Request;
+export default Request;

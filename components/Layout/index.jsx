@@ -14,9 +14,7 @@ const Layout =({ children, isAuthenticated }) => {
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css"></link>
       <link rel="shortcut icon" href="/ico.png" type="image/x-icon"/>
     </Head>
-    {
-      (router.route !== '/registro' && router.route !== '/login') && (<Navbar/>)
-    }
+    <Navbar/>
     {children}
     {
       (router.route !== '/registro' && router.route !== '/login') && (<Footer/>)

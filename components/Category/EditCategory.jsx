@@ -1,32 +1,17 @@
 import { Formik } from "formik";
-import * as Yup from "yup";
-import {useEffect, useState} from 'react'
+import {useState} from 'react'
 import {useDispatch, useSelector}from 'react-redux';
 import {editCategory} from '../../store/actions/categoryAction';
-import Slide from '@material-ui/core/Slide';
-import InputMask from 'react-input-mask' ;
 
 
 
-function TransitionDown(props) {
-  return <Slide {...props} direction="down" />;
-}
 
 
-
-const Edit_Category = (props) => {
+const EditCategory = (props) => {
   const { _id, name_category} = props.categoryInfo;
   const [open, setOpen] = React.useState(true);
-  const [transition, setTransition] = React.useState(undefined);
   const dispatch = useDispatch();
   const {loading} = useSelector(state =>state.ui);
-  const {errorForm, setErrorForm} = useState(false)
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-
 
 return (
   <Formik
@@ -118,4 +103,4 @@ return (
 )
 }
 
-export default Edit_Category ;
+export default EditCategory ;

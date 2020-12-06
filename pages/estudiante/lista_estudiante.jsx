@@ -2,22 +2,17 @@ import Head from 'next/head';
 import { connect } from 'react-redux';
 import initialize from '../../utils/initialize';
 import actions from '../../store/actions';
-import All_Student from '../../components/Student/all_student';
+import AllStudent from '../../components/Student/AllStudent';
 
-const AllStudent = ({auth}) => {
+const All_Student = ({auth}) => {
 
   return (
     <>
       <Head>
         <title>Estudiantes - SCI</title>
-        <link rel="icon" href="/favicon.ico" />
       </Head>
       {
-        auth.token ? (
-          <>
-            <All_Student/>  
-          </>
-        ) : (
+        auth.token ? (<AllStudent/> ) : (
           <div className="h-screen flex justify-center items-center">
             <p>Porfavor! authentificarse</p>
           </div>
@@ -27,8 +22,8 @@ const AllStudent = ({auth}) => {
   )
 }
 
-AllStudent.getInitialProps = async(ctx) => {
+All_Student.getInitialProps = async(ctx) => {
   await initialize(ctx);
 }
 
-export default connect(state => state, actions)(AllStudent);
+export default connect(state => state, actions)(All_Student);

@@ -2,22 +2,17 @@ import Head from 'next/head';
 import { connect } from 'react-redux';
 import initialize from '../../utils/initialize';
 import actions from '../../store/actions';
-import All_Category from '../../components/Category/all_category';
+import AllCategory from '../../components/Category/AllCategory';
 
-const ListCategory = ({auth}) => {
+const All_Category = ({auth}) => {
 
   return (
     <>
       <Head>
         <title>Categoria - SCI</title>
-        <link rel="icon" href="/favicon.ico" />
       </Head>
       {
-        auth.token ? (
-          <>
-            <All_Category/>  
-          </>
-        ) : (
+        auth.token ? (<AllCategory/>) : (
           <div className="h-screen flex justify-center items-center">
             <p>Porfavor! authentificarse</p>
           </div>
@@ -27,8 +22,8 @@ const ListCategory = ({auth}) => {
   )
 }
 
-ListCategory.getInitialProps = async(ctx) => {
+All_Category.getInitialProps = async(ctx) => {
   await initialize(ctx);
 }
 
-export default connect(state => state, actions)(ListCategory);
+export default connect(state => state, actions)(All_Category);

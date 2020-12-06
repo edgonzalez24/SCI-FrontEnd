@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import Carousel from '../components/Home/carousel'
+import Carousel from '../components/Home/Carousel'
 const Home = () => {
   return (
     <>

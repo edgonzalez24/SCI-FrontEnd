@@ -2,11 +2,17 @@
 html {
     --primary-color: #18191a;
     --secondary-color: #fff;
+    --tertiary-color: #1c234d;
+    --quaternary-color: #fff;
+    --sextenary-color: #e2e8f0;
 }
 
 html[data-theme="dark"] {
     --primary-color: #fff;
     --secondary-color: #18191a;
+    --tertiary-color: #18191a;
+    --quaternary-color: #f2f2f2;
+    --sextenary-color: #f2f2f2;
 }
 
 body {
@@ -104,6 +110,10 @@ button:focus {
     background-color: rgba(0, 0, 0, 0.2) !important;
 }
 
+.MuiInputBase-input {
+    color: white !important;
+}
+
 .modal>.close {
     cursor: pointer;
     position: absolute;
@@ -128,10 +138,23 @@ button:focus {
 
 .titles,
 .color_text {
-    color: var(--primary-color);
+    color: white
+}
+
+.footer {
+    background-color: var(--tertiary-color);
 }
 
 .sidebar,
 .bg_color {
-    background-color: var(--secondary-color);
+    background-color: var(--tertiary-color);
+}
+
+.bg_white_gray {
+    background-color: var(--quaternary-color);
+}
+
+.bg_blue_gray,
+body {
+    background-color: var(--sextenary-color);
 }

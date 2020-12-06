@@ -1,12 +1,11 @@
 import { useRouter } from 'next/router'
-import Add_Request from "../../components/Request"
+import Request from "../../components/Request"
 import {useDispatch, useSelector} from 'react-redux';
-import { connect } from 'react-redux';
 import { detailBook} from '../../store/actions/bookAction';
 import { useEffect } from 'react';
 import Skeleton from '../../components/customsPreloader/skeleton';
 
-const Solicitud = () => {
+const Request_Book = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const {loading, msgSuccess, msgError} = useSelector(state =>state.ui);
@@ -26,10 +25,10 @@ const Solicitud = () => {
             </div>
           </div>
         ) : (
-          <Add_Request infoBook={book}/>
+          <Request infoBook={book}/>
         )
       }
     </>
   )
 }
-export default (Solicitud);
+export default (Request_Book);

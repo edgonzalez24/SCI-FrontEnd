@@ -47,8 +47,7 @@ const Navbar = ({auth}) => {
   }, []);
 
   return (
-    <>
-    <div className="flex flex-wrap w-full">
+    <div className="flex flex-wrap w-full bg_white_gray">
       {
         (showMenu) && (
           <nav className="sidebar lg:w-3/12 fixed z-20 h-screen animated slideInLeft">
@@ -209,26 +208,23 @@ const Navbar = ({auth}) => {
           </nav>
         ) 
       }
-      <div className="w-1/2 fixed z-20 right-0">
-          <div className="w-full flex justify-end relative">
-            <div className="block cursor-pointer mt-4 mr-5 " onClick={ () => setShowMenu(!showMenu)}>
-              <HamburgerMenu
-                  isOpen={open}
-                  menuClicked={handleClick}
-                  width={50}
-                  height={30}
-                  strokeLinecap={3}
-                  rotate={0}
-                  className="font-bold leading-tight"
-                  borderRadius={0}
-                  color="#1c234d"
-                  animationDuration={0.5}
-                />
-            </div>
-          </div>
+      <div className="absolute top-0 right-0 z-50">
+        <div className="block cursor-pointer mt-4 mr-5 " onClick={ () => setShowMenu(!showMenu)}>
+          <HamburgerMenu
+            isOpen={open}
+            menuClicked={handleClick}
+            width={50}
+            height={30}
+            strokeLinecap={3}
+            rotate={0}
+            className="font-bold leading-tight"
+            borderRadius={0}
+            color="#1c234d"
+            animationDuration={0.5}
+          />
+        </div>
       </div>
     </div>
-    </>
   )
 }
 Navbar.getInitialProps = async(ctx) => {

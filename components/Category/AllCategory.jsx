@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react'
 import {useDispatch, useSelector}from 'react-redux';
-import { getLoans, deleteLoan } from '../../store/actions/loanAction';
+import { getCategory, deleteCategory} from '../../store/actions/categoryAction';
 import Skeleton from '../customsPreloader/skeleton';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -10,12 +10,12 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import Popup from 'reactjs-popup';
-import Pagination from '@material-ui/lab/Pagination';
+import EditCategory from './EditCategory';
 
-const All_Loans = ({loans, pages, getLoans}) => {
+
+const AllCategory = ({categories, getCategory}) => {
   const dispatch = useDispatch();
   const {loading, msgSuccess, msgError} = useSelector(state =>state.ui);
-  const [show, setShow] = useState(false);
   const [open, setOpen] = React.useState(false);
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
@@ -28,25 +28,20 @@ const All_Loans = ({loans, pages, getLoans}) => {
   };
 
 
-  const removeData = (id_student,id_book, id_loan) => {
+  const removeData = (id) => {
     setOpen(false);
-    dispatch(deleteLoan(id_student,id_book, id_loan));
+    dispatch(deleteCategory(id));
   }
-  const [currentPage, setCurrentPage] = useState(1);
-  const handleChange = (event,value) => {
-    setCurrentPage(value);
-    getLoa(value);
-  };
   useEffect(() => {
-    getLoans()
-  }, [])
+      getCategory();
+  },[]);
   return (
-    <div className="lg:h-screen bg-gray-300 overflow-hidden">
-      <div className="container mx-auto flex justify-center items-center flex-col h-full">
+    <div className="lg:h-screen bg_blue_gray overflow-hidden">
+      <div className="container mx-auto flex justify-center items-center h-full">
         <div className="lg:5/6 w-full">
-          <h2 className="text-lg lg:text-3xl text-blue-500 font-bold text-center animated slideInRight">Lista de Prestamos</h2>
+          <h2 className="text-lg lg:text-3xl text-blue-500 font-bold text-center animated slideInRight">Lista de categorias</h2>
           {
-            (loans.length > 0) ? (
+            (categories.length > 0) ? (
               <div className="overflow-hidden w-full">
                 <div className="bg-white shadow-lg rounded-lg animated slideInLeft">
                 {
@@ -62,16 +57,7 @@ const All_Loans = ({loans, pages, getLoans}) => {
                                 Número
                               </th>
                               <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                                Nombre del Estudiante
-                              </th>
-                              <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                                Grado Acádemico
-                              </th>
-                              <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                                Nombre del Libro
-                              </th>
-                              <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                                Codigo de Libro
+                                Nombre de Categoria
                               </th>
                               <th className="px-6 py-3 bg-gray-50 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
                                 Acciones
@@ -79,7 +65,7 @@ const All_Loans = ({loans, pages, getLoans}) => {
                             </tr>
                           </thead>
                           {
-                            loans.map( (loan, index) => (
+                            categories.map( (category, index) => (
                               <tbody 
                               key={index}
                               className="bg-white divide-y divide-gray-200">
@@ -88,20 +74,24 @@ const All_Loans = ({loans, pages, getLoans}) => {
                                 {index + 1}
                               </td>
                               <td className="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
-                                { `${loan.id_student.name} ${loan.id_student.lastname}` }
-                              </td>
-                              <td className="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
-                                {loan.id_student.academic_degree}
-                              </td>
-                              <td className="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
-                                {loan.id_book.title_book}
-                              </td>
-                              <td className="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
-                                {loan.id_book.isbn_book}
+                                {category.name_category}
                               </td>
                               <td className="px-6 py-4 whitespace-no-wrap text-right text-sm leading-5 font-medium flex justify-between ">
-                                <button className="text-red-500 hover:text-red-700 focus:outline-none border border-red-500 px-2 py-1" onClick={handleClickOpen}>
+                                <Popup trigger={<button type="button" className="focus:outline-none text-indigo-600 hover:text-indigo-800 font-bold">Editar </button>} modal>
+                                {(close) => (
+                                  <div className="modal animated slideInLeft">
+                                    <button type="button" className="close" onClick={close}>
+                                      &times;
+                                    </button>
+                                    <EditCategory categoryInfo={category}/>
+                                  </div>
+                                )}
+                              </Popup>
+                              <button className="text-white font-bold bg-red-700 hover:bg-red-600 focus:outline-none border flex items-center py-3 px-5 rounded-md transition duration-500 ease-in-out" onClick={handleClickOpen}>
                                   Eliminar
+                                  <span className="ml-1">
+                                    <img src="/icons/trash.svg" alt="icon-trash" className="w-4 h-4"/>
+                                  </span>
                                 </button>
                                 <Dialog
                                   fullScreen={fullScreen}
@@ -114,7 +104,7 @@ const All_Loans = ({loans, pages, getLoans}) => {
                                     <Button autoFocus onClick={handleClose} color="primary" className="focus:outline-none">
                                       Cancelar
                                     </Button>
-                                    <Button onClick={() => removeData(loan.id_student._id, loan.id_book._id,loan._id)} color="primary" className="focus:outline-none" autoFocus>
+                                    <Button onClick={() => removeData(category._id)} color="primary" className="focus:outline-none" autoFocus>
                                       Confirmar
                                     </Button>
                                   </DialogActions>
@@ -155,19 +145,15 @@ const All_Loans = ({loans, pages, getLoans}) => {
           </div>
                 )
               }
-        <div className="mt-5 w-full flex justify-center">
-          <Pagination count={pages} className="focus:outline-none" onChange={handleChange} />
-        </div>
       </div>
     </div>
   )
 }
 const mapStateToProps = (state) => ({
-  loans: state.loan.loans,
-  pages: state.loan.pages,
+  categories: state.category.categories,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getLoans: (currentPage) => dispatch(getLoans(currentPage))
+  getCategory: () => dispatch(getCategory())
 });
-export default connect(mapStateToProps, mapDispatchToProps)(All_Loans);
+export default connect(mapStateToProps, mapDispatchToProps)(AllCategory);

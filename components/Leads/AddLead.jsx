@@ -1,10 +1,11 @@
 import {useState} from 'react';
-import List_Book from './List_Book';
-import List_Students from './List_Students';
+import ListBook from './ListBook';
+import ListStudents from './ListStudents';
 import {useDispatch, useSelector}from 'react-redux';
-import {addLoan} from '../../store/actions/loanAction'
+import {addLoan} from '../../store/actions/loanAction';
+import {dias, meses} from '../../public/global';
 
-const Register_Leans = () => {
+const AddLead = () => {
   const dispatch = useDispatch();
   //Const
   const check_blue = '/icons/check.svg';
@@ -13,8 +14,10 @@ const Register_Leans = () => {
   const year = today.getFullYear();
   const month = today.getMonth();
   const day = today.getDay();
-  const date = `${day}-${month}-${year}`;
-  const {loading, msgSuccess, msgError} = useSelector(state =>state.ui);
+  const monthFormat = meses[month];
+  const dayFormat = dias[day];
+  const date = `${dayFormat} ${day} de ${monthFormat} del ${year}`;
+  const {msgSuccess, msgError} = useSelector(state =>state.ui);
 
 
   // State
@@ -60,7 +63,7 @@ const Register_Leans = () => {
   const styles = 'bg-blue-500 absolute m-auto top-0 lg:top-auto bottom-0 left-0 animated bounceInRight';
 
   return (
-    <div className="m-5 h-screen">
+    <div className="p-5 min-h-screen bg_blue_gray" >
       <div className="mt-10 w-3/4">
         <div className="w-full flex relative lg:pb-4">
           <div
@@ -115,8 +118,8 @@ const Register_Leans = () => {
         </div>
       </div>
       {
-        (tabSelect === 0) && (<List_Students selectedStudent={selectedStudent}/>) ||
-        (tabSelect === 1) && (<List_Book selectedBook={selectedBook} />) ||
+        (tabSelect === 0) && (<ListStudents selectedStudent={selectedStudent}/>) ||
+        (tabSelect === 1) && (<ListBook selectedBook={selectedBook} />) ||
         (tabSelect === 2) && (
           <div className="animated fadeIn">
             <div className="flex justify-center lg:mt-20">
@@ -160,4 +163,4 @@ const Register_Leans = () => {
 }
 
 
-export default Register_Leans;
+export default AddLead;

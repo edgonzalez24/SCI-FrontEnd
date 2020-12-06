@@ -20,8 +20,7 @@ const Carousel = () => {
     }
   ]
   return (
-    <>
-      <div className="relative">
+    <div className="relative">
       <Swiper
         key={images.length}
         effect="fade"
@@ -38,8 +37,7 @@ const Carousel = () => {
           </SwiperSlide>)
         )}
       </Swiper>
-      </div>
-    </>
+    </div>
   )
 }
 export default Carousel;

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { searchBook } from '../../store/actions/bookAction';
-import {useDispatch, useSelector}from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 const SearchBook = () => {
   const dispatch = useDispatch();

@@ -2,22 +2,17 @@ import Head from 'next/head';
 import { connect } from 'react-redux';
 import initialize from '../../utils/initialize';
 import actions from '../../store/actions';
-import Add_Category from '../../components/Category/add_category';
+import AddCategory from '../../components/Category/AddCategory';
 
-const AddInventory = ({auth}) => {
+const Add_Category = ({auth}) => {
 
   return (
     <>
       <Head>
         <title>Categoria - SCI</title>
-        <link rel="icon" href="/favicon.ico" />
       </Head>
       {
-        auth.token ? (
-          <>
-            <Add_Category/>  
-          </>
-        ) : (
+        auth.token ? ( <AddCategory/>) : (
           <div className="h-screen flex justify-center items-center">
             <p>Porfavor! authentificarse</p>
           </div>
@@ -27,8 +22,8 @@ const AddInventory = ({auth}) => {
   )
 }
 
-AddInventory.getInitialProps = async(ctx) => {
+Add_Category.getInitialProps = async(ctx) => {
   await initialize(ctx);
 }
 
-export default connect(state => state, actions)(AddInventory);
+export default connect(state => state, actions)(Add_Category);

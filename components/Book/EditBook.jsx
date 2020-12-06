@@ -4,29 +4,17 @@ import {useEffect, useState} from 'react'
 import {useDispatch, useSelector}from 'react-redux';
 import { getCategory } from '../../store/actions/categoryAction';
 import {editBook} from '../../store/actions/bookAction';
-import Slide from '@material-ui/core/Slide';
 import InputMask from 'react-input-mask' ;
 
 
 
-function TransitionDown(props) {
-  return <Slide {...props} direction="down" />;
-}
 
-
-
-const Edit_Book = (props) => {
+const EditBook = (props) => {
   const { _id, title_book, isbn_book, editorial, autor, category, date_publication} = props.bookInfo;
   const [open, setOpen] = React.useState(true);
-  const [transition, setTransition] = React.useState(undefined);
   const dispatch = useDispatch();
   const { categories } =  useSelector(state =>state.category);
   const {loading} = useSelector(state =>state.ui);
-  const {errorForm, setErrorForm} = useState(false)
-
-  const handleClose = () => {
-    setOpen(false);
-  };
 
   useEffect(() => {
     dispatch(getCategory());
@@ -212,4 +200,4 @@ return (
 )
 }
 
-export default Edit_Book ;
+export default EditBook;

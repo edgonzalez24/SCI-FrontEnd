@@ -10,13 +10,12 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import Popup from 'reactjs-popup';
-import Edit_Book from './edit_book'
+import EditBook from './EditBook'
 import Pagination from '@material-ui/lab/Pagination';
 
-const All_Book = ({books, pages, getBook}) => {
+const AllBook = ({books, pages, getBook}) => {
   const dispatch = useDispatch();
   const {loading, msgSuccess, msgError} = useSelector(state =>state.ui);
-  const [show, setShow] = useState(false);
   const [open, setOpen] = useState(false);
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
@@ -41,9 +40,8 @@ const All_Book = ({books, pages, getBook}) => {
     getBook()
   }, [])
   return (
-    <div className="lg:h-screen bg-gray-300 overflow-hidden">
+    <div className="lg:h-screen bg_blue_gray overflow-hidden">
       <div className="container mx-auto flex justify-center items-center h-full flex-col">
-  
         <div className="lg:5/6 w-full">
           <h2 className="text-lg lg:text-3xl text-blue-500 font-bold text-center animated slideInRight">Lista de libros</h2>
           {
@@ -103,19 +101,22 @@ const All_Book = ({books, pages, getBook}) => {
                                 </span>
                               </td>
                               <td className="px-6 py-4 whitespace-no-wrap text-right text-sm leading-5 font-medium flex justify-between ">
-                                <Popup trigger={<button type="button" className="focus:outline-none text-indigo-600 hover:text-indigo-900">Editar </button>} modal>
+                                <Popup trigger={<button type="button" className="focus:outline-none text-indigo-600 hover:text-indigo-800 font-bold">Editar </button>} modal>
                                 {(close) => (
                                   <div className="modal animated slideInLeft">
                                     <button type="button" className="close" onClick={close}>
                                       &times;
                                     </button>
-                                    <Edit_Book bookInfo={book}/>
+                                    <EditBook bookInfo={book}/>
                                   </div>
                                 )}
                               </Popup>
-                                <Button variant="outlined" color="primary"  className="text-red-500 hover:text-red-700 focus:outline-none border border-red-500" onClick={handleClickOpen}>
+                                <button className="text-white font-bold bg-red-700 hover:bg-red-600 focus:outline-none border flex items-center py-3 px-5 rounded-md transition duration-500 ease-in-out" onClick={handleClickOpen}>
                                   Eliminar
-                                </Button>
+                                  <span className="ml-1">
+                                    <img src="/icons/trash.svg" alt="icon-trash" className="w-4 h-4"/>
+                                  </span>
+                                </button>
                                 <Dialog
                                   fullScreen={fullScreen}
                                   open={open}
@@ -183,4 +184,4 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   getBook: (currentPage) => dispatch(getBook(currentPage))
 });
-export default connect(mapStateToProps, mapDispatchToProps)(All_Book);
+export default connect(mapStateToProps, mapDispatchToProps)(AllBook);
