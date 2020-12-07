@@ -3,7 +3,7 @@ import {useSelector}from 'react-redux';
 import { connect } from 'react-redux';
 import Skeleton from '../components/customsPreloader/skeleton';
 import { newsBooks } from '../store/actions/bookAction';
-import SearchBook from '../components/Search/searchBook';
+import SearchBook from '../components/Search/SearchBook';
 import Link from 'next/link'
 import Head from 'next/head';
 

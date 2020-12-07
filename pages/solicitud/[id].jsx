@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import Request from "../../components/Request"
+import Request from "../../components/Request/Request"
 import {useDispatch, useSelector} from 'react-redux';
 import { detailBook} from '../../store/actions/bookAction';
 import { useEffect } from 'react';
@@ -8,7 +8,7 @@ import Skeleton from '../../components/customsPreloader/skeleton';
 const Request_Book = () => {
   const router = useRouter();
   const dispatch = useDispatch();
-  const {loading, msgSuccess, msgError} = useSelector(state =>state.ui);
+  const {loading} = useSelector(state =>state.ui);
   const {book} = useSelector(state =>state.book);
   const {id} = router.query;
 
