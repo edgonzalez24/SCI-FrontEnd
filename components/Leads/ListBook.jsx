@@ -59,7 +59,7 @@ const ListBook = ({books, pages, getBook, selectedBook}) => {
       <div className="w-full">
       <div className="container mx-auto flex justify-center items-center h-full">
         <div className="lg:5/6 w-full">
-          <h2 className="text-lg lg:text-3xl text-blue-500 font-bold text-center ">Lista de libros</h2>
+          <h2 className="text-2xl lg:text-3xl text-blue-500 font-bold text-center ">Lista de libros</h2>
           {
             (books.length > 0) ? (
               <div className="w-full">

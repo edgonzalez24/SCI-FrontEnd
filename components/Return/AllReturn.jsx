@@ -40,10 +40,10 @@ const All_Returns = ({ returns, pages, getReturns }) => {
         getReturns()
     }, [])
     return (
-        <div className="lg:h-screen bg_blue_gray overflow-hidden">
-          <div className="container mx-auto flex justify-center items-center flex-col h-full">
-            <div className="lg:5/6 w-full">
-              <h2 className="text-lg lg:text-3xl text-blue-500 font-bold text-center animated slideInRight">Lista de Devoluciones</h2>
+        <div className="h-screen bg_blue_gray overflow-hidden">
+          <div className="container mx-auto flex justify-center items-center flex-col h-full px-5">
+            <div className="lg:5/6 w-full lg:mt-0 mt-16">
+              <h2 className="text-2xl lg:text-3xl text-blue-500 font-bold text-center animated slideInRight">Lista de Devoluciones</h2>
               {
                 (returns.length > 0) ? (
                   <div className="overflow-hidden w-full">

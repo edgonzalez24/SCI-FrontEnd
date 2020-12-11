@@ -133,6 +133,14 @@ button:focus {
     z-index: 50;
 }
 
+.MuiIconButton-root {
+    color: white !important
+}
+
+.MuiButtonBase-root {
+    background-color: gray;
+}
+
 
 /* Custom DarkMode */
 
@@ -154,7 +162,17 @@ button:focus {
     background-color: var(--quaternary-color);
 }
 
-.bg_blue_gray,
-body {
+.bg_blue_gray {
     background-color: var(--sextenary-color);
+}
+
+.color_blue_gray {
+    color: var(--sextenary-color);
+}
+
+@media(max-width:411px) {
+    .MuiDialog-paperFullScreen {
+        width: 97% !important;
+        height: auto !important;
+    }
 }

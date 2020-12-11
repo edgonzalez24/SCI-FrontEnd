@@ -40,10 +40,10 @@ return (
         } = props;
 
         return (
-            <div className="lg:h-screen bg_blue_gray ">
+            <div className="lg:h-screen bg_blue_gray w-full">
               <div className="container mx-auto flex justify-center items-center h-full">
-                <div className="lg:w-4/6 w-full">
-                  <h2 className="tex-lg lg:text-3xl text-blue-500 font-bold text-center animated slideInRight">Agregar Nueva Categoria</h2>
+                <div className="lg:w-4/6 w-full lg:mt-0 mt-16">
+                  <h2 className="text-2xl lg:text-3xl text-blue-500 font-bold text-center animated slideInRight">Agregar Nueva Categoria</h2>
                   <div className="w-full overflow-hidden">
                     <form className="bg-white shadow-lg rounded-lg px-8 pt-6 pb-8 mb-4 animated slideInLeft" onSubmit={handleSubmit}>
                       <div className="flex flex-wrap">

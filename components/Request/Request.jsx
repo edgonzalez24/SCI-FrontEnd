@@ -42,86 +42,94 @@ return (
         } = props;
 
         return (
-            <div className="lg:h-screen bg-gray-300 ">
-              <div className="container mx-auto flex justify-center items-center h-full">
-                <div className="lg:w-4/6 w-full">
-                  <h2 className="text-lg lg:text-3xl text-blue-500 font-bold text-center animated slideInRight">Crear Solitud de Prestamo</h2>
-                  <div className="w-full overflow-hidden">
-                    <form className="bg-white shadow-lg rounded-lg px-8 pt-6 pb-8 mb-4 animated slideInLeft" onSubmit={handleSubmit}>
-                      <div className="flex flex-wrap">
-                        <div className="w-full lg:w-1/5 lg:pr-5 flex items-center">
-                          <div>
-                            <p className="italic">"No olvide completar la informacion"</p>
-                            <img src="/gifs/book.gif" alt=""/>
-                          </div>
-                        </div>
-                        <div className="w-full lg:w-4/5">
-                          <div className="flex flex-wrap -mx-3 mb-6">
-                            <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                              <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                                Nombre 
-                              </label>
-                              <input
-                              name="name"
-                              id="name"
-                              value={values.name}
-                              onChange={handleChange}
-                              onBlur={handleBlur}
-                              open={open}
-                              className={
-                                errors.name && touched.name ? 
-                                "appearance-none block w-full bg-gray-200 text-gray-700 border-2 border-red-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white" : "appearance-none block w-full bg-gray-200 text-gray-700 border-2 border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
-                              } 
-                              type="text" placeholder="Nombre"/>
-                              {errors.name && touched.name && (
-                              <div className="text-red-700 text-xs">{errors.name}</div>
-                            )}
-                            </div>
-                            <div className="w-full md:w-1/2 px-3">
-                              <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                                Apellido
-                              </label>
-                              <input
-                              name="lastname"
-                              id="lastname"
-                              value={values.lastname}
-                              onChange={handleChange}
-                              onBlur={handleBlur}
-                              className={
-                                errors.lastname && touched.lastname ? 
-                                "appearance-none block w-full bg-gray-200 text-gray-700 border-2 border-red-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white" : "appearance-none block w-full bg-gray-200 text-gray-700 border-2 border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
-                              } 
-                              type="text" placeholder="Apellido"/>
-                              {errors.lastname && touched.name && (
-                                <div className="text-red-700 text-xs">{errors.lastname}</div>
+          <div className="relative bg_blue_gray overflow-hidden h-full lg:h-screen animated fadeIn ">
+            <div className="max-w-7xl mx-auto h-full">
+              <div className="relative z-10 pb-8 bg_blue_gray flex h-full items-center md:pb-20 lg:max-w-2xl lg:w-full">
+                <svg className="hidden lg:block absolute right-0 inset-y-0 h-full lg:h-screen w-48 color_blue_gray transform translate-x-1/2" fill="currentColor" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+                  <polygon points="50,0 100,0 50,100 0,100" />
+                </svg>
+                <div className="relative pt-6 px-4 sm:px-6 lg:px-8">
+                </div>
+                <div className="mt-10 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-4 xl:mt-28">
+                  <div className="sm:text-center lg:text-left">
+                  <div className="lg:w-11/12 w-full">
+                    <h2 className="text-lg lg:text-3xl text-blue-500 font-bold text-center">Crear Solitud de Prestamo</h2>
+                    <div className="w-full overflow-hidden">
+                      <form className="bg-white shadow-lg rounded-lg px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit}>
+                        <div className="flex flex-wrap">
+                          <div className="w-full">
+                            <div className="flex flex-wrap -mx-3 mb-6">
+                              <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                                <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                                  Nombre 
+                                </label>
+                                <input
+                                name="name"
+                                id="name"
+                                value={values.name}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                open={open}
+                                className={
+                                  errors.name && touched.name ? 
+                                  "appearance-none block w-full bg-gray-200 text-gray-700 border-2 border-red-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white" : "appearance-none block w-full bg-gray-200 text-gray-700 border-2 border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
+                                } 
+                                type="text" placeholder="Nombre"/>
+                                {errors.name && touched.name && (
+                                <div className="text-red-700 text-xs">{errors.name}</div>
                               )}
+                              </div>
+                              <div className="w-full md:w-1/2 px-3">
+                                <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                                  Apellido
+                                </label>
+                                <input
+                                name="lastname"
+                                id="lastname"
+                                value={values.lastname}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                className={
+                                  errors.lastname && touched.lastname ? 
+                                  "appearance-none block w-full bg-gray-200 text-gray-700 border-2 border-red-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white" : "appearance-none block w-full bg-gray-200 text-gray-700 border-2 border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white"
+                                } 
+                                type="text" placeholder="Apellido"/>
+                                {errors.lastname && touched.name && (
+                                  <div className="text-red-700 text-xs">{errors.lastname}</div>
+                                )}
+                              </div>
                             </div>
-                          </div>
-                          <div className="my-5">
-                        <span className="flex justify-center ">
-                          <button
-                            type="submit"
+                            <div className="my-5">
+                          <span className="flex justify-center ">
+                            <button
+                              type="submit"
 
-                            className="grovana-round bg-blue-500 text-lg hover:bg-transparent hover:text-blue-500 py-2 text-white cursor-pointer inline-flex items-center justify-center font-bold focus:outline-none w-40 border border-blue-500 transition duration-500 ease-in-out">
-                              {
-                                (loading) && (
-                                  <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-blue-500 focus:outline-none" id="loading" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                                  </svg>
-                                )
-                              }
-                              Enviar Solicitud
-                            </button>
-                        </span>
-                      </div>
+                              className="grovana-round bg-blue-500 text-lg hover:bg-transparent hover:text-blue-500 py-2 text-white cursor-pointer inline-flex items-center justify-center font-bold focus:outline-none w-40 rounded-md border border-blue-500 transition duration-500 ease-in-out">
+                                {
+                                  (loading) && (
+                                    <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-blue-500 focus:outline-none" id="loading" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                    </svg>
+                                  )
+                                }
+                                Enviar Solicitud
+                              </button>
+                          </span>
                         </div>
-                      </div>
-                    </form> 
+                          </div>
+                        </div>
+                      </form> 
+                    </div>
+                  </div>
                   </div>
                 </div>
               </div>
-              {
+            </div>
+            <div className="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
+              <img className="h-56 w-full object-cover sm:h-72 md:h-96 lg:w-full lg:h-full" src="/images/child.jpg" alt="" />
+            </div>
+            {
                 (msgError || msgSuccess) && (
                   <div className="overflow-hidden">
                     <div className={
@@ -135,7 +143,7 @@ return (
                   </div>
                 )
               }
-            </div>
+          </div>
         )
       }
     }

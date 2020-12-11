@@ -84,7 +84,7 @@ const formLogin= () => {
                         aria-label="toggle password visibility"
                         onClick={togglePasswordVisiblity }
                         onMouseDown={togglePasswordVisiblity }
-                        className="focus:outline-none"
+                        className="focus:outline-none text-white"
                       >
                         {passwordShown ? <Visibility /> : <VisibilityOff />}
                       </IconButton>

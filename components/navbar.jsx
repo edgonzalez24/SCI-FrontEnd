@@ -34,11 +34,15 @@ const Navbar = ({auth}) => {
   const reviewNotification = notification => {
     setShowPreview(!setPreview);
     setPreview(notification);
-    dispatch(updateNotification(notification._id));
   };
   const openStyle = (index) => {
     setActive(index);
   };
+
+  const toggleNotification = preview => {
+    setShowPreview(!showPreview)
+    dispatch(updateNotification(preview._id));
+  }
 
   const filterNotification = notifications.filter(item => item.status === true);
 
@@ -87,7 +91,7 @@ const Navbar = ({auth}) => {
                           (showNotifications) && (
                             (filterNotification.length > 0) ? (
                               <div>
-                                    <div className="origin-top-right absolute right-0 mt-2 w-64 h-32 rounded-md shadow-lg z-30 animated fadeIn bg_color">
+                                    <div className="origin-top-right absolute right-0 mt-2 w-64 h-32 rounded-md shadow-lg z-30 animated fadeIn  bg-white">
                                       <div className="py-1 rounded-md shadow-xs" role="menu" aria-orientation="vertical" aria-labelledby="user-menu">
                                           {
                                             (showPreview) ? (
@@ -96,17 +100,17 @@ const Navbar = ({auth}) => {
                                                       <a 
                                                       key={index}
                                                       href="#" 
-                                                      className="block px-2 py-2 text-xs leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out" role="menuitem"
+                                                      className="block px-2 py-2 text-xs leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out bg-white" role="menuitem"
                                                       onClick={() => reviewNotification(notification)}>
                                                         Tiene una notificacion de: {notification.name} {notification.lastname}...
                                                       </a>
                                                     )
                                                 ))
                                             ) : (
-                                            <div className="px-2">
+                                            <div className="px-2  bg-white">
                                               <div
-                                                className="cursor-pointer text-gray-500 font-bold"
-                                                onClick={() => setShowPreview(!showPreview)}
+                                                className="cursor-pointer text-gray-500 font-bold "
+                                                onClick={() => toggleNotification(preview)}
                                               >
                                                 X Regresar
                                               </div>
@@ -219,7 +223,7 @@ const Navbar = ({auth}) => {
             rotate={0}
             className="font-bold leading-tight"
             borderRadius={0}
-            color="#1c234d"
+            className="text-gray-500"
             animationDuration={0.5}
           />
         </div>

@@ -53,10 +53,10 @@ const AllLead = ({loans, pages, getLoans}) => {
     getLoans()
   }, [])
   return (
-    <div className="lg:h-screen bg_blue_gray overflow-hidden">
-      <div className="container mx-auto flex justify-center items-center flex-col h-full">
-        <div className="lg:5/6 w-full">
-          <h2 className="text-lg lg:text-3xl text-blue-500 font-bold text-center animated slideInRight">Lista de Prestamos</h2>
+    <div className="h-screen bg_blue_gray overflow-hidden">
+      <div className="container mx-auto flex justify-center items-center flex-col h-full px-5">
+        <div className="lg:5/6 w-full lg:mt-0 mt-16">
+          <h2 className="text-2xl lg:text-3xl text-blue-500 font-bold text-center animated slideInRight">Lista de Prestamos</h2>
           {
             (loans.length > 0) ? (
               <div className="overflow-hidden w-full">
@@ -120,13 +120,13 @@ const AllLead = ({loans, pages, getLoans}) => {
                               <td className="px-6 py-4 whitespace-no-wrap text-right text-sm leading-5 font-medium flex justify-between ">
                                 <button className="text-white font-bold bg-red-700 hover:bg-red-600 focus:outline-none border flex items-center py-3 px-5 rounded-md transition duration-500 ease-in-out" onClick={handleClickOpen}>
                                   Eliminar
-                                  <span className="ml-1">
+                                  <span className="ml-1 lg:block hidden">
                                     <img src="/icons/trash.svg" alt="icon-trash" className="w-4 h-4"/>
                                   </span>
                                 </button>
                                 <button className="text-white font-bold bg-red-700 hover:bg-red-600 focus:outline-none border flex items-center py-3 px-5 rounded-md transition duration-500 ease-in-out" onClick={()=> handleReturn(loan.id_student, loan.id_book, loan._id)}>
                                   Devolver
-                                  <span className="ml-1">
+                                  <span className="ml-1 lg:block hidden">
                                     <img src="/icons/return.svg" alt="icon-trash" className="w-4 h-4"/>
                                   </span>
                                 </button>
