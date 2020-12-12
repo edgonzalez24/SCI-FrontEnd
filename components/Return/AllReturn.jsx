@@ -72,6 +72,9 @@ const All_Returns = ({ returns, pages, getReturns }) => {
                                   <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
                                     Codigo de Libro
                                   </th>
+                                  <th className="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                                    Fecha de Devolucion
+                                  </th>
                                   <th className="px-6 py-3 bg-gray-50 text-center text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
                                     Acciones
                                   </th>
@@ -97,6 +100,9 @@ const All_Returns = ({ returns, pages, getReturns }) => {
                                   </td>
                                   <td className="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
                                     {item.id_book.isbn_book}
+                                  </td>
+                                  <td className="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
+                                    {item.date_return}
                                   </td>
                                   <td className="px-6 py-4 whitespace-no-wrap text-right text-sm leading-5 font-medium flex justify-between ">
                                     <button className="text-white font-bold bg-red-700 hover:bg-red-600 focus:outline-none border flex items-center py-3 px-5 rounded-md transition duration-500 ease-in-out" onClick={handleClickOpen}>

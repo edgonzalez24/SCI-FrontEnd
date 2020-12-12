@@ -117,14 +117,14 @@ const AllLead = ({loans, pages, getLoans}) => {
                               <td className="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
                                 {loan.date_loan}
                               </td>
-                              <td className="px-6 py-4 whitespace-no-wrap text-right text-sm leading-5 font-medium flex justify-between ">
-                                <button className="text-white font-bold bg-red-700 hover:bg-red-600 focus:outline-none border flex items-center py-3 px-5 rounded-md transition duration-500 ease-in-out" onClick={handleClickOpen}>
+                              <td className="px-3 py-4 whitespace-no-wrap text-right text-sm leading-5 font-medium flex justify-between ">
+                                <button className="text-white font-bold bg-red-700 hover:bg-red-600 focus:outline-none border flex items-center py-3 px-2 rounded-md transition duration-500 ease-in-out" onClick={handleClickOpen}>
                                   Eliminar
                                   <span className="ml-1 lg:block hidden">
                                     <img src="/icons/trash.svg" alt="icon-trash" className="w-4 h-4"/>
                                   </span>
                                 </button>
-                                <button className="text-white font-bold bg-red-700 hover:bg-red-600 focus:outline-none border flex items-center py-3 px-5 rounded-md transition duration-500 ease-in-out" onClick={()=> handleReturn(loan.id_student, loan.id_book, loan._id)}>
+                                <button className="text-white font-bold bg-red-700 hover:bg-red-600 focus:outline-none border flex items-center py-3 px-2 rounded-md transition duration-500 ease-in-out" onClick={()=> handleReturn(loan.id_student, loan.id_book, loan._id)}>
                                   Devolver
                                   <span className="ml-1 lg:block hidden">
                                     <img src="/icons/return.svg" alt="icon-trash" className="w-4 h-4"/>

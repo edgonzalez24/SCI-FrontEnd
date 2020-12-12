@@ -14,9 +14,10 @@ const AddLead = () => {
   const year = today.getFullYear();
   const month = today.getMonth();
   const day = today.getDay();
+  const getDate = today.getDate();
   const monthFormat = meses[month];
   const dayFormat = dias[day];
-  const date = `${dayFormat} ${day} de ${monthFormat} del ${year}`;
+  const date = `${dayFormat} ${getDate} de ${monthFormat} del ${year}`;
   const {msgSuccess, msgError} = useSelector(state =>state.ui);
 
 
